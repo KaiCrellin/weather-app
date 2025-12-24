@@ -4,15 +4,29 @@ This is a full-stack weather application displayting weather and 5 day forecast 
 
 ## Architecture
 
-WEATHER-APP/
-===backend/ #Express API SEVER
-----------routes/ # API routes handlers
-----------services/ # businesss logic (OpenWeather Intergration)
-----------data # Demo JSON files
-----------server.js # application entry point
-===frontend # React + Vite UI
-----------src/
------------(CONT)
+weather-dashboard/
+├── .gitignore
+├── README.md
+├── CONTRIBUTING.md
+└── backend/
+    ├── .env.example (template)
+    ├── .gitignore
+    ├── package.json
+    ├── README.md
+    ├── server.js
+    ├── data/
+    │   ├── README.md
+    │   ├── demo-current-london.json
+    │   ├── demo-current-tokyo.json
+    │   ├── demo-forecast-london.json
+    │   └── demo-forecast-tokyo.json
+    ├── docs/
+    │   └── API_CONTRACT.md
+    ├── routes/
+    │   └── weather.js
+    ├── services/
+    │   └── weatherService.js
+    ├── test-parity.js
 
 ## Tech Stack
 
