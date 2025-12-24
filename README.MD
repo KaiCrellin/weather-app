@@ -235,12 +235,12 @@ GET /api/weather?city={cityName}
 - Combined Current + forecast endpoint
 - Error handling
 
-### Phase 3: Demo Data Mode (in process) []
+### Phase 3: Demo Data Mode (Completed) [x]
 
 - Local JSON files for development
 - Mode Switching without code changes
 
-### Phase 4: Frontend Foundation (To do) []
+### Phase 4: Frontend Foundation (In Development) [o]
 
 - React + Vite setup
 - API service layer
