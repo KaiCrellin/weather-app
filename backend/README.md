@@ -237,7 +237,7 @@ frontend will recieve this exact strucutre regardless of demo/live mode.
 - 2 API calls per city search ( current + forecast)
 - ~500 city searches per day max
 
-**Reccomendations**
+**Recommendations**
 
 - Use Demo Mode during development
 - Implement Frontend caching

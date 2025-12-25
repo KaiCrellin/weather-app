@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: initial;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.app-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+section {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+h4 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #7f8c8d;
+}
+
+/* Health Status */
+.health-section p {
+  margin: 10px 0;
+}
+
+.health-success {
+  color: #27ae60;
+  background: #d5f4e6;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid #27ae60;
+}
+
+.health-error {
+  color: #c0392b;
+  background: #fadbd8;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid #c0392b;
+}
+
+.help-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.help-text code {
+  background: #34495e;
+  color: #ecf0f1;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: "Courier New", monospace;
+}
+
+/* Search Form */
+.search-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.search-input:disabled {
+  background: #ecf0f1;
+  cursor: not-allowed;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+  margin-top: 10px;
+}
+
+.btn-secondary:hover {
+  background-color: #7f8c8d;
+}
+
+/* Weather Results */
+.weather-error {
+  background: #fadbd8;
+  border-left: 4px solid #c0392b;
+  padding: 15px;
+  border-radius: 4px;
+  color: #c0392b;
+}
+
+.weather-results {
+  margin-top: 20px;
+}
+
+.current-weather,
+.forecast-preview {
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.weather-data p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.forecast-sample {
+  margin-top: 10px;
+}
+
+.forecast-entry {
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border-left: 3px solid #3498db;
+}
+
+.forecast-entry p {
+  margin: 5px 0;
+}
+
+/* Raw Data */
+.raw-data {
+  margin-top: 20px;
+}
+
+.raw-data summary {
+  cursor: pointer;
+  padding: 10px;
+  background: #34495e;
+  color: white;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.raw-data summary:hover {
+  background: #2c3e50;
+}
+
+.raw-data pre {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Instructions */
+.instructions ol {
+  margin-left: 20px;
+}
+
+.instructions li {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+/* JSON Display */
+pre {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}

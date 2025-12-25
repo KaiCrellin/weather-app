@@ -153,7 +153,7 @@ export async function getWeatherData(city, apikey) {
         }
     } catch (error) {
         console.error(`[WEATHER SERVICE ERROR]:`, {
-            mode: USE_DEMO_DATA ? 'demo' : 'live',
+            mode: USE_DEMO ? 'demo' : 'live',
             message: error.message,
             response: error.respose?.data,
             status: error.respose?.status
