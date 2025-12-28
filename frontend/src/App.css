@@ -1,21 +1,30 @@
+@media screen and (min-width: 1025px) {
+  * {
+    display: fit-content;
+  }
+}
+
+
+
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: initial;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
   color: #333;
+  background-image: linear-gradient(
+    180deg,
+    gray,
+    lightgray,
+    darkgray
+  );
 }
 
 .app {
-  max-width: 1200px;
+  max-width: fit-content;
+  max-height: fit-content;
   margin: 0 auto;
   padding: 20px;
 }
@@ -32,7 +41,7 @@ body {
 .app-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: #2c3e50;
+  color: #415468;
 }
 
 .app-header p {
@@ -127,6 +136,51 @@ h4 {
   cursor: not-allowed;
 }
 
+/*Input Wrap*/
+
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.input-wrapper .search-input {
+  display: relative;
+  width: 100%;
+}
+
+.input-error {
+  border-color: #e74c3c !important;
+  flex: 1;
+  position: sticky;
+}
+
+.input-error:focus {
+  border-color: #c0392b !important;
+}
+
+.validation-error {
+  background: #fadbd7;
+  color: #c0392b;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  border-left: 3px solid #c0392b;
+}
+
+.input-suggestion {
+  background: #d7eaf8;
+  color: #1f618d;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  border-left: 3px solid #3498db;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Buttons */
 .btn-primary,
 .btn-secondary {
@@ -161,11 +215,59 @@ h4 {
 .btn-secondary {
   background-color: #95a5a6;
   color: white;
-  margin-top: 10px;
 }
 
 .btn-secondary:hover {
   background-color: #7f8c8d;
+}
+
+.suggestion-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.suggestion-button:hover {
+  background: #2980b9;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group .btn-secondary {
+  margin-top: 0;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #95a5a6;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.clear-button:hover {
+  color: #e74c4c;
+}
+
+.clear-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Weather Results */
@@ -251,10 +353,11 @@ h4 {
 
 /* JSON Display */
 pre {
-  background: #2c3e50;
+  background: #086eeb;
   color: #ecf0f1;
   padding: 10px;
   border-radius: 4px;
   overflow-x: auto;
   font-size: 0.85rem;
+  transition: ease-in-out;
 }
