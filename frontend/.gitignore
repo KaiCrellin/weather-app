@@ -32,5 +32,4 @@ dist-ssr
 coverage
 .nyc_output
 
-
 .vite/
