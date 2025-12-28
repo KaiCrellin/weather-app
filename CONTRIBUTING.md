@@ -67,7 +67,6 @@ git push origin main
 
 = 'Feat:' - New Feature
 = 'Fix:' - Bug Fix
-
 - 'Docs:' - Documentation Only
 - 'Refactor:' - Code restructuring
 - 'Test' - adding tests
