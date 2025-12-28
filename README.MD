@@ -240,13 +240,13 @@ GET /api/weather?city={cityName}
 - Local JSON files for development
 - Mode Switching without code changes
 
-### Phase 4: Frontend Foundation (In Development) [o]
+### Phase 4: Frontend Foundation (Completed) [X]
 
 - React + Vite setup
 - API service layer
 - backend connection
 
-### Phase 5: Weather UI Logic (To Do) []
+### Phase 5: Weather UI Logic (Ongoing) [o]
 
 - Search functionality
 - Data validation
@@ -287,7 +287,7 @@ WEATHER-APP/
     =README.md      # Frontend Specifications
 ```
 
-# Testing
+
 
 ## Backend Tests
 
