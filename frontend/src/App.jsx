@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { checkHealth, getWeather} from '../services/api.js';
 import { validatCityInput, formatCityName, getInputSuggestion } from './utils/validation.js';
 import './App.css'
@@ -59,7 +59,7 @@ function App() {
     setCityInput(e.target.value);
 
     if (weatherError) {
-      setWeatherData(null)
+      setWeatherData(null);
     }
   };
 
@@ -77,7 +77,7 @@ function App() {
     const sanitizedCity = validation.sanitized;
     console.log(`[APP] Searching for City:`, sanitizedCity);
 
-    const MIN_LOAD_TIME = 500; // 500s
+    const MIN_LOAD_TIME = 200; // 500s
     const startTime = Date.now();
 
     
@@ -86,7 +86,7 @@ function App() {
     setWeatherError(null);
     setWeatherData(null);
     setValidationError(null);
-    setInputSuggestion(null)
+    setInputSuggestion(null);
 
     const result = await getWeather(sanitizedCity);
 
@@ -171,13 +171,36 @@ function App() {
         )}
       </section>
 
+      <section className='instructions'>
+        <h2>Testing Instructions</h2>
+        <ol>
+          <li><b>Search Loading</b> Search London Should centered spinner with overlay </li>
+          <li><b>Background Dim</b> Button should dim and blur background</li>
+          <li><b>Button State</b> Button Shoul show inline spinner and Searching...</li>
+          <li><b>Input disabled</b> input field shoul be disabled during loading</li>
+          <li><b>Health check loading</b> Refresh page should show inline spinner for health check</li>
+        </ol>
+        <h2>New Features</h2>
+        <ol>
+          <li>Reusable LoadingSpinner component</li>
+          <li>full-screen overaly with backdrop blur</li>
+          <li>cented modal spinner</li>
+          <li>Inline spinner for button</li>
+          <li>Inline Spinner for health check</li>
+          <li>custom loading messages</li>
+          <li>smooth css animations</li>
+          <li> Prevent users interactions during Loading</li>
+        </ol>
+      </section>
+
 
 
       <section className="weather-section">
         <h2>Weather Search</h2>
-        <form onSubmit={handleSearch} className="search-form">
+        <form  onSubmit={handleSearch} className="search-form">
           <div className="input-wrapper">
             <input
+            name='search-form'
             type="text"
             value={cityInput}
             onChange={handleInputChange}
@@ -265,10 +288,10 @@ function App() {
 
         {weatherData && (
           <div className="weather-results">
-            <h3>Results for {weatherData.current.name}</h3>
+            <h2>Results for {weatherData.current.name}</h2>
 
             <div className="current-weather">
-              <h4>Current Weather</h4>
+              <h2>Current Weather</h2>
               <div className="weather-data">
                 <p><b>Temperature:</b> {weatherData.current.main.temp}C</p>
                 <p><b>Feels Like:</b> {weatherData.current.main.feels_like}C</p>
@@ -281,10 +304,9 @@ function App() {
             </div>
 
             <div className="forecast-preview">
-              <h4>Forecast Preview</h4>
-              <p>Total Forecast enteries for {weatherData.forecast.list.length}</p>
+              <h2>Forecast Preview</h2>
               <div className="forecast-sample">
-                <h5>First 3 Entries:</h5>
+                <h3>First 3 Entries:</h3>
                 {weatherData.forecast.list.slice(0,3).map((entry, index) => (
                   <div key={index} className="forecast-entry">
                     <p><b>Time:</b> {entry.dt_txt}</p>
@@ -305,28 +327,7 @@ function App() {
         )}
       </section>
 
-      <section className='instructions'>
-        <h2>Testing Instructions</h2>
-        <ol>
-          <li><b>Search Loading</b> Search London Should centered spinner with overlay </li>
-          <li><b>Background Dim</b> Button should dim and blur background</li>
-          <li><b>Button State</b> Button Shoul show inline spinner and Searching...</li>
-          <li><b>Input disabled</b> input field shoul be disabled during loading</li>
-          <li><b>Health check loading</b> Refresh page should show inline spinner for health check</li>
-        </ol>
-
-        <h3>New Features</h3>
-        <ol>
-          <li>Reusable LoadingSpinner component</li>
-          <li>full-screen overaly with backdrop blur</li>
-          <li>cented modal spinner</li>
-          <li>Inline spinner for button</li>
-          <li>Inline Spinner for health check</li>
-          <li>custom loading messages</li>
-          <li>smooth css animations</li>
-          <li> Prevent users interactions during Loading</li>
-        </ol>
-      </section>
+      
     </div>
 
     
