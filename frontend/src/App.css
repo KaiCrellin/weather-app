@@ -1,10 +1,13 @@
-@media screen and (min-width: 1025px) {
-  * {
-    display: fit-content;
+@media screen and (max-width: 700px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    margin: auto;
   }
 }
-
-
 
 * {
   margin: 0;
@@ -14,12 +17,6 @@
 
 body {
   color: #333;
-  background-image: linear-gradient(
-    180deg,
-    gray,
-    lightgray,
-    darkgray
-  );
 }
 
 .app {
@@ -246,6 +243,23 @@ h4 {
   margin-top: 0;
 }
 
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+}
+
 .clear-button {
   position: absolute;
   right: 10px;
@@ -281,6 +295,18 @@ h4 {
 
 .weather-results {
   margin-top: 20px;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .current-weather,
@@ -359,5 +385,16 @@ pre {
   border-radius: 4px;
   overflow-x: auto;
   font-size: 0.85rem;
-  transition: ease-in-out;
+  animation: easeIn 2s ease-out forwards;
+}
+
+@keyframes easeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(20deg);
+  }
 }

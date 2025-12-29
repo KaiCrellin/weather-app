@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { checkHealth, getWeather, validateConnection } from '../services/api.js';
+import { checkHealth, getWeather} from '../services/api.js';
 import { validatCityInput, formatCityName, getInputSuggestion } from './utils/validation.js';
 import './App.css'
+import LoadingSpinner from './components/LoadingSpinner.jsx';
 
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
@@ -74,7 +75,10 @@ function App() {
     }
 
     const sanitizedCity = validation.sanitized;
-    console.log(`[APP] Searcjomg for City:`, sanitizedCity);
+    console.log(`[APP] Searching for City:`, sanitizedCity);
+
+    const MIN_LOAD_TIME = 500; // 500s
+    const startTime = Date.now();
 
     
 
@@ -87,16 +91,24 @@ function App() {
     const result = await getWeather(sanitizedCity);
 
 
-    if (result.success) {
-      console.log(`[APP] Weather Data Recieved`, result.data);
-      setWeatherData(result.data);
-      setCityInput(formatCityName(sanitizedCity));
-    } else {
-      console.error(`[APP] Weather Error`, result.error);
-      setWeatherError(result.error);
-    }
+    const endTime = Date.now();
+    const duration = endTime - startTime;
 
-    setWeatherLoading(false);
+
+    const remainingTime = Math.max(0, MIN_LOAD_TIME - duration);
+
+
+    setTimeout(() => {
+      if (result.success) {
+        console.log(`[APP] Weather Data Recieved`, result.data);
+        setWeatherData(result.data);
+        setCityInput(formatCityName(sanitizedCity));
+      } else {
+        console.error(`[APP] Weather Error`, result.error);
+        setWeatherError(result.error);
+      }
+      setWeatherLoading(false);
+    }, remainingTime);
   };
 
 
@@ -122,16 +134,24 @@ function App() {
 
   return (
     <div className="app">
+
+
+      <LoadingSpinner
+        show={weatherLoading}
+        message='Fetching Weather Data...'
+        overlay={true}
+      />
+
       <header className="app-header">
         <h1>Weather Dashboard</h1>
-        <p>Phase 5: Weather UI</p>
+        <p>Phase 5: Weather UI - Feature 2</p>
       </header>
 
 
        <section className="health-section">
         <h2>Backend Status</h2>
         {healthLoading ? (
-          <p>Checking backend connection...</p>
+          <LoadingSpinner show={true} message='Checking Backend' />
         ) : healthStatus.success ? (
           <div className="health-success">
             <p> Backend connected</p>
@@ -208,7 +228,14 @@ function App() {
             className="btn-primary"
             disabled={weatherLoading || !healthStatus?.success || validationError !== null}
             >
-              {weatherLoading ? 'Searching...': 'Search'}
+             {weatherLoading ? (
+              <span className="button-content">
+                <span className="button-spinner"></span>
+                Searching...
+              </span>
+             ) : (
+              'Search'
+             )}
             </button>
 
 
@@ -281,28 +308,23 @@ function App() {
       <section className='instructions'>
         <h2>Testing Instructions</h2>
         <ol>
-          <li><b>Valid Input</b> Type "London"  Should work</li>
-          <li><b>Empty Input:</b> Try to search with empty field - will show error</li>
-          <li><b>Too Short:</b> Type "L" Should show minimum length error</li>
-          <li><b>Too Long:</b> Type 51+ Characters should show max length error</li>
-          <li><b>Invalid Character:</b> Type "London123" Should show character error</li>
-          <li><b>Extra Spaces:</b> Type: "New  York" (double space) Should show spacing error</li>
-          <li><b>Misspelling:</b> Type "Londom" should suggest "london"</li>
-          <li><b>Clear Button:</b> Type Text Click X should clear input</li>
-          <li><b>Formatting:</b> Type "london After Search Should format to "London" </li>
+          <li><b>Search Loading</b> Search London Should centered spinner with overlay </li>
+          <li><b>Background Dim</b> Button should dim and blur background</li>
+          <li><b>Button State</b> Button Shoul show inline spinner and Searching...</li>
+          <li><b>Input disabled</b> input field shoul be disabled during loading</li>
+          <li><b>Health check loading</b> Refresh page should show inline spinner for health check</li>
         </ol>
 
         <h3>New Features</h3>
         <ol>
-          <li>Real Time Input Validation (300ms Debounce)</li>
-          <li>Min-Max length Validation (2-50 characters)</li>
-          <li>Character Validation (letters, spaces, hyphens, apostrophes only)</li>
-          <li>Automatic WHitespace trimming</li>
-          <li>city name formatting (capitalize words)</li>
-          <li>Misspelling suggestions</li>
-          <li>Clear button (x) in input field</li>
-          <li>Clear results button</li>
-          <li>Disabled states during loading</li>
+          <li>Reusable LoadingSpinner component</li>
+          <li>full-screen overaly with backdrop blur</li>
+          <li>cented modal spinner</li>
+          <li>Inline spinner for button</li>
+          <li>Inline Spinner for health check</li>
+          <li>custom loading messages</li>
+          <li>smooth css animations</li>
+          <li> Prevent users interactions during Loading</li>
         </ol>
       </section>
     </div>
