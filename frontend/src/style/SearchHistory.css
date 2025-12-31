@@ -1,12 +1,7 @@
 @media screen and (max-width: 700px) {
-  .history-item-main {
+  .history-item {
     flex-direction: column;
-    align-items: flex-start;
     gap: 8px;
-  }
-
-  .history-item-weather {
-    align-self: flex-start;
   }
 }
 
@@ -66,8 +61,9 @@
   display: flex;
   background: white;
   border-radius: 6px;
-  margin: auto;
   overflow: hidden;
+  margin: 12px 13px;
+  padding: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
 }
@@ -95,8 +91,6 @@
 }
 
 .history-item-main {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -139,6 +133,8 @@
 }
 
 .history-time {
+  flex: 1;
+  display: flex;
   font-size: 0.8rem;
   color: #95a5a6;
 }

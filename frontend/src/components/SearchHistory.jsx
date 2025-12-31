@@ -1,7 +1,7 @@
 import { formatRelativeTime } from "../utils/searchHistory.js";
 
 // Import CSS
-import '../components/SearchHistory.css'
+import '../style/SearchHistory.css'
 
 
 

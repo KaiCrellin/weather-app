@@ -6,8 +6,7 @@
     flex-direction: column;
   }
 
-  .btn-primary,
-  .btn-secondary {
+  .btn-primary .btn-secondary {
     margin: auto;
   }
 }

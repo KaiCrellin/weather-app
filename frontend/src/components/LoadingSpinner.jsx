@@ -1,4 +1,4 @@
-import '../components/LoadingSpinner.css';
+import '../style/LoadingSpinner.css';
 
 
 

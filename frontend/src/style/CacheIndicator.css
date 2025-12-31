@@ -1,0 +1,50 @@
+.cache-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+.cache-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cache-icon {
+  font-size: 1.2rem;
+}
+
+.cache-text {
+  color: #856404;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.cache-refresh-btn {
+  background: #ffc107;
+  color: #856404;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cache-refresh-button:hover {
+  background: #ffb300;
+  transform: tranlateY(-1px);
+}
+
+.cache-refresh-btn:active {
+  transform: translateY(0);
+}

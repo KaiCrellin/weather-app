@@ -1,0 +1,138 @@
+/* Cache Manager */
+.cache-manager {
+  background: #e8f4f8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.cache-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cache-manager-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.cache-toggle-btn {
+  background: none;
+  border: 1px solid #3498db;
+  color: #3498db;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.cache-toggle-btn:hover {
+  background: #3498db;
+  color: white;
+}
+
+/* Cache Stats */
+.cache-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.cache-stat {
+  background: white;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.stat-value.valid {
+  color: #27ae60;
+}
+
+.stat-value.expired {
+  color: #e74c3c;
+}
+
+/* Cache Details */
+.cache-details {
+  border-top: 1px solid #bdc3c7;
+  padding-top: 15px;
+}
+
+.cache-empty {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 10px;
+}
+
+.cache-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cache-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border-left: 3px solid #3498db;
+}
+
+.cache-item.expired {
+  border-left-color: #e74c3c;
+  opacity: 0.6;
+}
+
+.cache-city-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.cache-city-age {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+.clear-cache-btn {
+  width: 100%;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.clear-cache-btn:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}

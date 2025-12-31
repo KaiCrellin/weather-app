@@ -7,9 +7,13 @@ import {
   getSearchHistory, 
   removeFromSearchHistory
 } from './utils/searchHistory.js';
+import { getCachedWeather, setCachedWeather} from './utils/cache.js';
 import LoadingSpinner from './components/LoadingSpinner.jsx';
 import SearchHistory from './components/SearchHistory.jsx';
+import CacheIndicator from './components/CacheIndicator.jsx';
+import CacheManager from './components/CacheManager.jsx';
 import './App.css'
+
 
 
 function App() {
@@ -22,12 +26,13 @@ function App() {
   const [validationError, setValidationError] = useState(null);
   const [inputSuggestion, setInputSuggestion] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
+  const [cacheInfo, setCacheInfo] = useState(null);
 
   // Load Search History.
   useEffect(() => {
     const history = getSearchHistory();
-    setSearchHistory(history)
-    console.log(`[APP] Loaded Search History:`, history.length, ' items')
+    setSearchHistory(history);
+    console.log(`[APP] Loaded Search History:`, history.length, ' items');
   }, []);
 
 
@@ -82,7 +87,7 @@ function App() {
   };
 
   // Perform Weather Search
-  const performSearch = async (city) => {
+  const performSearch = async (city, forceRefresh = false) => {
 
     const validation = validatCityInput(city);
 
@@ -92,23 +97,48 @@ function App() {
     }
 
     const sanitizedCity = validation.sanitized;
-    console.log(`[APP] Searching for City:`, sanitizedCity);
+    console.log(`[APP] Searching for City:`, sanitizedCity, forceRefresh? '(forced refresh)' : '');
+
+
+    if (!forceRefresh) {
+      const cached = getCachedWeather(sanitizedCity);
+      if (cached) {
+        console.log(`[APP] using Cached Data For`, sanitizedCity);
+        setWeatherData(cached.data);
+        setCacheInfo({fromCache: true, age: cached.age});
+        setCityInput(formatCityName(sanitizedCity));
+        setWeatherError(null);
+        setValidationError(null);
+        setInputSuggestion(null);
+
+
+        const updatedHistory = addToSearchHistory(sanitizedCity, cached.data);
+        setSearchHistory(updatedHistory);
+        return;
+      }
+    }
 
    
     
-
+    
     setWeatherLoading(true);
     setWeatherError(null);
     setWeatherData(null);
     setValidationError(null);
     setInputSuggestion(null);
+    setCacheInfo(null);
 
     const result = await getWeather(sanitizedCity);
+
     setWeatherLoading(false);
+
     if (result.success) {
         console.log(`[APP] Weather Data Recieved`, result.data);
         setWeatherData(result.data);
+        setCacheInfo({fromCache: false, age: 0})
         setCityInput(formatCityName(sanitizedCity));
+
+        setCachedWeather(sanitizedCity, result.data);
 
 
 
@@ -117,6 +147,7 @@ function App() {
       } else {
         console.error(`[APP] Weather Error`, result.error);
         setWeatherError(result.error);
+        setCacheInfo(null);
     }
       
   };
@@ -124,26 +155,35 @@ function App() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    await performSearch(cityInput);
+    await performSearch(cityInput, false);
     setWeatherLoading(false);
   };
 
+   // handle Refresh 
+   const handleRefresh = async () => {
+    if(weatherData && weatherData.current) {
+      const city =  weatherData.current.name;
+      console.log(`[APP] Refreshing data for`, city);
+      await performSearch(city, true)
+    }
+   }
 
+   // Handle History Search Selection
   const handleHistorySelect = async (city) => {
     console.log(`[APP] Selected from history`, city);
     setCityInput(city);
-    await performSearch(city);
+    await performSearch(city, false);
   };
 
-
+  // Handle Remove From History (individual)
   const handleRemoveFromHistory = (city) => {
-    console.log(`[APP] removing from history`, city)
+    console.log(`[APP] removing from history`, city);
     const updatedHistory = removeFromSearchHistory(city);
     setSearchHistory(updatedHistory);
   };
 
 
-
+  // Handle Clear Search History (entirely)
   const handleClearHistory = ()  => {
     console.log(`[APP] Clearing All History `);
     if (window.confirm("Are you sure you want to clear all your history?")) {
@@ -236,12 +276,26 @@ function App() {
           <li> Will persist if broswer sessions change</li>
           <li> Emply State Message to promt users</li>
         </ol>
+        <h2>Cache Behaviour</h2>
+        <ol>
+          <li> First Search - API Call - Cahce Stored</li>
+          <li> Repeat Search (within 10m) - Cache Used - No API call</li>
+          <li> Click Refresh - API Call - Cache Updated</li>
+          <li> After 10m - cache expires - next search calls API</li>
+          <li> History Click - Uses Cache if available</li>
+        </ol>
       </section>
-
 
 
       <section className="weather-section">
         <h2>Weather Search</h2>
+        {cacheInfo && (
+              <CacheIndicator
+              fromCache={cacheInfo.fromCache}
+              age={cacheInfo.age}
+              onRefresh={handleRefresh}
+              />
+            )}
         <form  onSubmit={handleSearch} className="search-form">
           <div className="input-wrapper">
             <input
@@ -289,6 +343,8 @@ function App() {
             </div>
           )}
 
+          
+
 
           <div className="button-group">
             <button
@@ -326,6 +382,8 @@ function App() {
         onClearHistory={handleClearHistory}
         />
 
+        <CacheManager/>
+
 
 
         {weatherError && (
@@ -339,7 +397,9 @@ function App() {
 
         {weatherData && (
           <div className="weather-results">
-            <h2>Results for {weatherData.current.name}</h2>
+
+
+            <h3>Results for {weatherData.current.name}</h3>
 
             <div className="current-weather">
               <h2>Current Weather</h2>
