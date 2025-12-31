@@ -1,3 +1,6 @@
+/*
+  @media and screen to target devices with a maximum width of 700px
+*/
 @media screen and (max-width: 700px) {
   .search-form {
     flex-direction: column;
@@ -9,22 +12,35 @@
   }
 }
 
+/*
+ Entire Page Style
+*/
 * {
   margin: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
+/*
+ Body Style
+*/
+
 body {
   color: #333;
 }
 
+/*
+  Main Container
+*/
 .app {
   max-width: fit-content;
   margin: auto;
   padding: 20px;
 }
 
+/* 
+  Header Section
+*/
 .app-header {
   text-align: center;
   margin-bottom: 40px;
@@ -34,17 +50,26 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/*
+  Header Heading
+*/
 .app-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
   color: #415468;
 }
 
+/*
+  Header Text
+*/
 .app-header p {
   color: #7f8c8d;
   font-size: 1.1rem;
 }
 
+/*
+  Section Styling
+*/
 section {
   background: white;
   padding: 20px;
@@ -53,6 +78,9 @@ section {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/*
+ Header Styles
+*/
 h2 {
   margin-bottom: 15px;
   color: #2c3e50;
@@ -77,6 +105,9 @@ h4 {
   margin: 10px 0;
 }
 
+/*
+  Health Success Message
+*/
 .health-success {
   color: #27ae60;
   background: #d5f4e6;
@@ -85,6 +116,9 @@ h4 {
   border-left: 4px solid #27ae60;
 }
 
+/*
+  Health Error Message
+*/
 .health-error {
   color: #c0392b;
   background: #fadbd8;
@@ -93,11 +127,17 @@ h4 {
   border-left: 4px solid #c0392b;
 }
 
+/*
+  Help Text
+*/
 .help-text {
   margin-top: 10px;
   font-size: 0.9rem;
 }
 
+/*
+  Help Text Code Section
+*/
 .help-text code {
   background: #34495e;
   color: #ecf0f1;
@@ -113,6 +153,9 @@ h4 {
   margin-bottom: 20px;
 }
 
+/*
+  Search City Input Field
+*/
 .search-input {
   flex: 1;
   padding: 12px;
@@ -122,38 +165,41 @@ h4 {
   transition: border-color 0.3s;
 }
 
+/*
+  Search input focus change
+*/
 .search-input:focus {
   outline: none;
   border-color: #3498db;
 }
-/* Disable Search input*/
+/* Disable Search input change*/
 .search-input:disabled {
   background: #ecf0f1;
   cursor: not-allowed;
 }
 
-/*Input Wrap*/
+/* Weather Section Input Wrap*/
 .input-wrapper {
   position: relative;
   flex: 1;
 }
-/* Search Input*/
+/* Weather Section, Input Wrap, Search Input*/
 .input-wrapper .search-input {
   display: relative;
   width: 100%;
 }
-/* Input Error*/
+/* Weather Section, Input Wrap,  Input Error*/
 .input-error {
   border-color: #e74c3c !important;
   flex: 1;
   position: sticky;
 }
-/* Input Error Changes color on focus*/
+/* Input Error focus change*/
 .input-error:focus {
   border-color: #c0392b !important;
 }
 
-/* Validaton Error*/
+/* Validaton Error Message*/
 .validation-error {
   background: #fadbd7;
   color: #c0392b;
@@ -163,7 +209,7 @@ h4 {
   margin-top: 5px;
   border-left: 3px solid #c0392b;
 }
-/* Input Suggestion*/
+/* Input Suggestion Message*/
 .input-suggestion {
   background: #d7eaf8;
   color: #1f618d;
@@ -177,7 +223,7 @@ h4 {
   gap: 10px;
 }
 
-/* Buttons */
+/* Input Section Buttons */
 .btn-primary,
 .btn-secondary {
   padding: 12px 24px;
@@ -356,7 +402,7 @@ h4 {
 
 /* Instructions */
 .instructions ol {
-  margin-left:10px;
+  margin-left: 10px;
 }
 
 .instructions li {

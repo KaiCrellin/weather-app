@@ -55,6 +55,9 @@
   font-weight: 500;
 }
 
+/*
+  Spinner Overlay for blur.
+*/
 .spinner-overlay {
   position: fixed;
   top: 0;
@@ -64,14 +67,4 @@
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1000;
   backdrop-filter: blur(2px);
-}
-
-.loading-spinner.inline .spinner {
-  width: 30px;
-  height: 30px;
-  border-width: 3px;
-}
-
-.loading-spinner.inline .spinner-message {
-  font-size: 0.85rem;
 }

@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
-import { checkHealth, getWeather} from '../services/api.js';
+import { checkHealth, getWeather } from '../services/api.js';
 import { validatCityInput, formatCityName, getInputSuggestion } from './utils/validation.js';
-import './App.css'
+import { 
+  addToSearchHistory, 
+  clearSearchHistory, 
+  getSearchHistory, 
+  removeFromSearchHistory
+} from './utils/searchHistory.js';
 import LoadingSpinner from './components/LoadingSpinner.jsx';
+import SearchHistory from './components/SearchHistory.jsx';
+import './App.css'
+
 
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
@@ -13,9 +21,17 @@ function App() {
   const [cityInput, setCityInput] = useState('');
   const [validationError, setValidationError] = useState(null);
   const [inputSuggestion, setInputSuggestion] = useState(null);
+  const [searchHistory, setSearchHistory] = useState([]);
+
+  // Load Search History.
+  useEffect(() => {
+    const history = getSearchHistory();
+    setSearchHistory(history)
+    console.log(`[APP] Loaded Search History:`, history.length, ' items')
+  }, []);
 
 
-
+  // Check Backend Health
   useEffect(() => {
     const checkBackendHealth = async () => {
       console.log(`[APP] Checking Backend Health...`);
@@ -28,6 +44,8 @@ function App() {
   }, []);
 
 
+ 
+  // Validate Input as Users Types
   useEffect(() => {
     if (cityInput.trim() === '') {
         setValidationError(null);
@@ -54,7 +72,7 @@ function App() {
   }, [cityInput]);
 
 
-
+  // Handle Input Change
   const handleInputChange = (e) => {
     setCityInput(e.target.value);
 
@@ -63,11 +81,10 @@ function App() {
     }
   };
 
+  // Perform Weather Search
+  const performSearch = async (city) => {
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-
-    const validation = validatCityInput(cityInput)
+    const validation = validatCityInput(city);
 
     if (!validation.isValid) {
       setValidationError(validation.error);
@@ -77,9 +94,7 @@ function App() {
     const sanitizedCity = validation.sanitized;
     console.log(`[APP] Searching for City:`, sanitizedCity);
 
-    const MIN_LOAD_TIME = 200; // 500s
-    const startTime = Date.now();
-
+   
     
 
     setWeatherLoading(true);
@@ -89,30 +104,55 @@ function App() {
     setInputSuggestion(null);
 
     const result = await getWeather(sanitizedCity);
-
-
-    const endTime = Date.now();
-    const duration = endTime - startTime;
-
-
-    const remainingTime = Math.max(0, MIN_LOAD_TIME - duration);
-
-
-    setTimeout(() => {
-      if (result.success) {
+    setWeatherLoading(false);
+    if (result.success) {
         console.log(`[APP] Weather Data Recieved`, result.data);
         setWeatherData(result.data);
         setCityInput(formatCityName(sanitizedCity));
+
+
+
+        const updatedHistory = addToSearchHistory(sanitizedCity, result.data);
+        setSearchHistory(updatedHistory);
       } else {
         console.error(`[APP] Weather Error`, result.error);
         setWeatherError(result.error);
-      }
-      setWeatherLoading(false);
-    }, remainingTime);
+    }
+      
+  };
+
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    await performSearch(cityInput);
+    setWeatherLoading(false);
+  };
+
+
+  const handleHistorySelect = async (city) => {
+    console.log(`[APP] Selected from history`, city);
+    setCityInput(city);
+    await performSearch(city);
+  };
+
+
+  const handleRemoveFromHistory = (city) => {
+    console.log(`[APP] removing from history`, city)
+    const updatedHistory = removeFromSearchHistory(city);
+    setSearchHistory(updatedHistory);
   };
 
 
 
+  const handleClearHistory = ()  => {
+    console.log(`[APP] Clearing All History `);
+    if (window.confirm("Are you sure you want to clear all your history?")) {
+      const updatedHistory = clearSearchHistory();
+      setSearchHistory(updatedHistory);
+    }
+  }
+
+  // Handle Input Clear Button Click
   const handleClear = () => {
     setCityInput('');
     setWeatherData(null);
@@ -121,7 +161,7 @@ function App() {
     setInputSuggestion(null);
   };
 
-
+  // Handle Suggestiuon Button Click
   const handleSuggestionClick = () => {
     if (inputSuggestion?.suggestion) {
       setCityInput(inputSuggestion.suggestion);
@@ -144,7 +184,7 @@ function App() {
 
       <header className="app-header">
         <h1>Weather Dashboard</h1>
-        <p>Phase 5: Weather UI - Feature 2</p>
+        <p>Phase 5: Weather UI - Feature 3</p>
       </header>
 
 
@@ -174,22 +214,27 @@ function App() {
       <section className='instructions'>
         <h2>Testing Instructions</h2>
         <ol>
-          <li><b>Search Loading</b> Search London Should centered spinner with overlay </li>
-          <li><b>Background Dim</b> Button should dim and blur background</li>
-          <li><b>Button State</b> Button Shoul show inline spinner and Searching...</li>
-          <li><b>Input disabled</b> input field shoul be disabled during loading</li>
-          <li><b>Health check loading</b> Refresh page should show inline spinner for health check</li>
+          <li><b>Searching:</b> Each City Search will be present in history
+          Parsing the most recent search to the top of the list </li>
+          <li><b>Click history Item</b>Cities can be researched by history item</li>
+          <li><b>Remove Item and Clear all</b>Entiers can be deleted individually or entirely</li>
+          <li><b>Persistance</b>Refreashing keeps history visible</li>
+          <li><b>Duplicate search</b>Should not update history</li>
+          <li><b>Max Items</b> Only Ten History Items can be held in storage at once</li>
+          <li><b>Relative Times</b> Searched items include a timestamp ('just now, x Minutes ago, etc.)</li>
         </ol>
         <h2>New Features</h2>
         <ol>
-          <li>Reusable LoadingSpinner component</li>
-          <li>full-screen overaly with backdrop blur</li>
-          <li>cented modal spinner</li>
-          <li>Inline spinner for button</li>
-          <li>Inline Spinner for health check</li>
-          <li>custom loading messages</li>
-          <li>smooth css animations</li>
-          <li> Prevent users interactions during Loading</li>
+          <li> LocalStorage SearchHistory</li>
+          <li> Max 10 History Items</li>
+          <li> Cities can be researched by history item</li>
+          <li> Remove individual history city entires</li>
+          <li> Clear all cities with window confirmation</li>
+          <li>  Show temp and weather conditions of previous searches</li>
+          <li> Relative Timestamps (just Now, 5 Minutes Ago, 2 Hours Ago)</li>
+          <li> duplicate history prevention</li>
+          <li> Will persist if broswer sessions change</li>
+          <li> Emply State Message to promt users</li>
         </ol>
       </section>
 
@@ -274,6 +319,12 @@ function App() {
           </div>
         </form>
 
+        <SearchHistory 
+        history={searchHistory} 
+        onSelectCity={handleHistorySelect}
+        onRemoveCity={handleRemoveFromHistory}
+        onClearHistory={handleClearHistory}
+        />
 
 
 
