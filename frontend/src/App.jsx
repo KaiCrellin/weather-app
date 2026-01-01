@@ -7,7 +7,7 @@ import {
   getSearchHistory, 
   removeFromSearchHistory
 } from './utils/searchHistory.js';
-import { getAllCachedCities, getCachedWeather, setCachedWeather} from './utils/cache.js';
+import { getCachedWeather, setCachedWeather} from './utils/cache.js';
 import LoadingSpinner from './components/LoadingSpinner.jsx';
 import SearchHistory from './components/SearchHistory.jsx';
 import CacheIndicator from './components/CacheIndicator.jsx';
@@ -30,11 +30,10 @@ function App() {
   const [searchHistory, setSearchHistory] = useState([]);
 
   const [cacheInfo, setCacheInfo] = useState(null);
-  const [cachedCities, setCachedCities] = useState(getAllCachedCities());
-
+  
   
 
-  const refreshCacheList = () => setCachedCities(getAllCachedCities())
+
 
   // Load Search History.
   useEffect(() => {
@@ -105,7 +104,7 @@ function App() {
     }
 
     const sanitizedCity = validation.sanitized;
-    console.log(`[APP] Searching for City:`, sanitizedCity, forceRefresh? '(forced refresh)' : '');
+    console.log(`[APP] Searching for City:`, sanitizedCity, forceRefresh ? '(forced refresh)' : '');
 
 
     if (!forceRefresh) {
@@ -143,7 +142,7 @@ function App() {
         setCacheInfo({fromCache: false, age: 0})
         setCityInput(formatCityName(sanitizedCity));
         setCachedWeather(sanitizedCity, result.data);
-        refreshCacheList();
+        
       
 
         const updatedHistory = addToSearchHistory(sanitizedCity, result.data);
@@ -159,8 +158,16 @@ function App() {
   const handleSearch = async (e) => {
     e.preventDefault();
     await performSearch(cityInput, false);
-    setWeatherLoading(false);
   };
+
+  // handle refresh
+  const handleRefresh = async () => {
+    if (weatherData && weatherData.current) {
+      const city = weatherData.current.name;
+      console.log(`[APP] Refreshing Data for:`, city)
+      await performSearch(city, true)
+    }
+  }
 
   
    // Handle History Search Selection
@@ -289,7 +296,7 @@ function App() {
               <CacheIndicator
               fromCache={cacheInfo.fromCache}
               age={cacheInfo.age}
-              onRefresh={() => performSearch(cityInput, true)}
+              onRefresh={handleRefresh}
               />
             )}
         <form  onSubmit={handleSearch} className="search-form">
@@ -378,7 +385,7 @@ function App() {
         onClearHistory={handleClearHistory}
         />
 
-        <CacheManager  cities={cachedCities} onUpdate={refreshCacheList}/>
+        <CacheManager/>
 
 
 

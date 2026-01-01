@@ -4,6 +4,8 @@ const CACHE_DURATION = 10 * 60 * 1000;
 
 
 
+
+
 function getCacheKey(city) {
     return `${CACHE_PREFIX}${city.toLowerCase()}`;
 }
@@ -26,11 +28,11 @@ export function getCachedWeather(city) {
 
 
         if (age > CACHE_DURATION) {
-            console.log(`[CACHE]Expired:`, city, `(${Math.rouind(age / 60000)} Minutes Old)`);
+            console.log(`[CACHE]Expired:`, city, `(${Math.round(age / 60000)} Minutes Old)`);
             localStorage.removeItem(key);
             return null;
         }
-        console.log(`[CACHE ]Hit:`, city, `(${Math.round(age / 1000)}`);
+        console.log(`[CACHE]Hit:`, city, `(${Math.round(age / 1000)}`);
         return {
             data,
             timestamp,

@@ -24,9 +24,9 @@ function CacheManager() {
         let interval;
         if (isExpanded) {
             interval = setInterval(() => {
-                console.log(`[CACHE Auto-Refreshing ages...]`);
+                console.log(`[CACHE]Auto-Refreshing ages...`);
                 loadCacheData();
-            }, 60000);
+            }, 15000);
         }
 
         return () => clearInterval(interval);

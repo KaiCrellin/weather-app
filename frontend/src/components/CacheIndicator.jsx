@@ -14,7 +14,7 @@ function CacheIndicator({ fromCache, age, onRefresh}) {
     return (
         <div className="cache-indicator">
             <div  className="cache-info">
-                <span ClassName="cache-icon">💾</span>
+                <span className="cache-icon">💾</span>
                 <span className="cache-text">
                     Cached data ({formatCacheAge(age)} old)
                 </span>
