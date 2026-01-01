@@ -27,6 +27,7 @@ function App() {
   const [inputSuggestion, setInputSuggestion] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
   const [cacheInfo, setCacheInfo] = useState(null);
+  const [refreshTrigger, setRefershTrigger] = useState(0);
 
   // Load Search History.
   useEffect(() => {
@@ -105,7 +106,7 @@ function App() {
       if (cached) {
         console.log(`[APP] using Cached Data For`, sanitizedCity);
         setWeatherData(cached.data);
-        setCacheInfo({fromCache: true, age: cached.age});
+        setCacheInfo({ fromCache: true, age: cached.age});
         setCityInput(formatCityName(sanitizedCity));
         setWeatherError(null);
         setValidationError(null);
@@ -139,6 +140,7 @@ function App() {
         setCityInput(formatCityName(sanitizedCity));
 
         setCachedWeather(sanitizedCity, result.data);
+        setRefershTrigger(prev => prev + 1)
 
 
 
@@ -161,7 +163,7 @@ function App() {
 
    // handle Refresh 
    const handleRefresh = async () => {
-    if(weatherData && weatherData.current) {
+    if (weatherData && weatherData.current) {
       const city =  weatherData.current.name;
       console.log(`[APP] Refreshing data for`, city);
       await performSearch(city, true)
@@ -293,7 +295,7 @@ function App() {
               <CacheIndicator
               fromCache={cacheInfo.fromCache}
               age={cacheInfo.age}
-              onRefresh={handleRefresh}
+              onRefresh={() => performSearch(cityInput, true)}
               />
             )}
         <form  onSubmit={handleSearch} className="search-form">
@@ -382,7 +384,7 @@ function App() {
         onClearHistory={handleClearHistory}
         />
 
-        <CacheManager/>
+        <CacheManager key={refreshTrigger}/>
 
 
 

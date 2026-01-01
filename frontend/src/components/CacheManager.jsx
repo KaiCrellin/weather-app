@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useCallback} from 'react';
 import { getAllCachedCities, clearAllCache, formatCacheAge, getCacheStats } from '../utils/cache';
 import '../style/CacheManager.css'
 
@@ -10,16 +10,16 @@ function CacheManager() {
     const [isExpanded, setIsExpanded] = useState(false);
 
 
+    
+
+    const loadCacheData = useCallback(() => {
+        setCachedCities(getAllCachedCities());
+        setStats(getCacheStats())
+    }, []);
+
     useEffect(() => {
         loadCacheData();
     }, []);
-
-    const loadCacheData = () => {
-        const cities = getAllCachedCities();
-        const cacheStats = getCacheStats();
-        setCachedCities(cities);
-        setStats(cacheStats);
-    }
 
 
 
