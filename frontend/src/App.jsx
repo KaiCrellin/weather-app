@@ -7,7 +7,7 @@ import {
   getSearchHistory, 
   removeFromSearchHistory
 } from './utils/searchHistory.js';
-import { getCachedWeather, setCachedWeather} from './utils/cache.js';
+import { getAllCachedCities, getCachedWeather, setCachedWeather} from './utils/cache.js';
 import LoadingSpinner from './components/LoadingSpinner.jsx';
 import SearchHistory from './components/SearchHistory.jsx';
 import CacheIndicator from './components/CacheIndicator.jsx';
@@ -19,15 +19,22 @@ import './App.css'
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [healthLoading, setHealthLoading] = useState(true);
+
   const [weatherData, setWeatherData] = useState(null);
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherError, setWeatherError] = useState(null);
   const [cityInput, setCityInput] = useState('');
   const [validationError, setValidationError] = useState(null);
   const [inputSuggestion, setInputSuggestion] = useState(null);
+
   const [searchHistory, setSearchHistory] = useState([]);
+
   const [cacheInfo, setCacheInfo] = useState(null);
-  const [refreshTrigger, setRefershTrigger] = useState(0);
+  const [cachedCities, setCachedCities] = useState(getAllCachedCities());
+
+  
+
+  const refreshCacheList = () => setCachedCities(getAllCachedCities())
 
   // Load Search History.
   useEffect(() => {
@@ -78,7 +85,7 @@ function App() {
   }, [cityInput]);
 
 
-  // Handle Input Change
+  // Handle Input Change - resets search to new searched value
   const handleInputChange = (e) => {
     setCityInput(e.target.value);
 
@@ -119,9 +126,6 @@ function App() {
       }
     }
 
-   
-    
-    
     setWeatherLoading(true);
     setWeatherError(null);
     setWeatherData(null);
@@ -138,11 +142,9 @@ function App() {
         setWeatherData(result.data);
         setCacheInfo({fromCache: false, age: 0})
         setCityInput(formatCityName(sanitizedCity));
-
         setCachedWeather(sanitizedCity, result.data);
-        setRefershTrigger(prev => prev + 1)
-
-
+        refreshCacheList();
+      
 
         const updatedHistory = addToSearchHistory(sanitizedCity, result.data);
         setSearchHistory(updatedHistory);
@@ -153,23 +155,14 @@ function App() {
     }
       
   };
-
-
+  // Handle Search Click. 
   const handleSearch = async (e) => {
     e.preventDefault();
     await performSearch(cityInput, false);
     setWeatherLoading(false);
   };
 
-   // handle Refresh 
-   const handleRefresh = async () => {
-    if (weatherData && weatherData.current) {
-      const city =  weatherData.current.name;
-      console.log(`[APP] Refreshing data for`, city);
-      await performSearch(city, true)
-    }
-   }
-
+  
    // Handle History Search Selection
   const handleHistorySelect = async (city) => {
     console.log(`[APP] Selected from history`, city);
@@ -183,6 +176,7 @@ function App() {
     const updatedHistory = removeFromSearchHistory(city);
     setSearchHistory(updatedHistory);
   };
+
 
 
   // Handle Clear Search History (entirely)
@@ -326,7 +320,7 @@ function App() {
 
           {validationError && (
             <div className="validation-error">
-              {validationError}
+              {validationError ?? 'No Value'}
             </div>
           )}
 
@@ -334,13 +328,13 @@ function App() {
 
           {inputSuggestion?.suggestion && (
             <div className="input-suggestion">
-              <span>{inputSuggestion.reason}</span>
+              <span>{inputSuggestion.reason ?? 'No Value'}</span>
               <button 
                 type="button"
                 onClick={handleSuggestionClick}
                 className="suggestion-button"
                 >
-                  {inputSuggestion.suggestion}
+                  {inputSuggestion.suggestion ?? 'No Value'}
                 </button>
             </div>
           )}
@@ -352,7 +346,7 @@ function App() {
             <button
             type="submit"
             className="btn-primary"
-            disabled={weatherLoading || !healthStatus?.success || validationError !== null}
+            disabled={weatherLoading  || !healthStatus?.success || validationError !== null}
             >
              {weatherLoading ? (
               <span className="button-content">
@@ -384,7 +378,7 @@ function App() {
         onClearHistory={handleClearHistory}
         />
 
-        <CacheManager key={refreshTrigger}/>
+        <CacheManager  cities={cachedCities} onUpdate={refreshCacheList}/>
 
 
 
@@ -401,18 +395,18 @@ function App() {
           <div className="weather-results">
 
 
-            <h3>Results for {weatherData.current.name}</h3>
+            <h3>Results for {weatherData.current.name ?? 'No Value'}</h3>
 
             <div className="current-weather">
               <h2>Current Weather</h2>
               <div className="weather-data">
-                <p><b>Temperature:</b> {weatherData.current.main.temp}C</p>
-                <p><b>Feels Like:</b> {weatherData.current.main.feels_like}C</p>
-                <p><b>Condition:</b> {weatherData.current.weather[0].main}</p>
-                <p><b>Description:</b> {weatherData.current.weather[0].description}</p>
-                <p><b>Humidiity:</b> {weatherData.current.main.humidity}%</p>
-                <p><b>Wind Speed</b> {weatherData.current.wind.speed}m/s</p>
-                <p><b>Country</b> {weatherData.current.sys.country}</p>
+                <p><b>Temperature:</b> {weatherData.current?.main.temp ?? 'No Value -'}C</p>
+                <p><b>Feels Like:</b> {weatherData.current?.main.feels_like ?? 'No Value -'}C</p>
+                <p><b>Condition:</b> {weatherData.current?.weather[0].main ?? 'No Value'}</p>
+                <p><b>Description:</b> {weatherData.current?.weather[0].description ?? 'No Value'}</p>
+                <p><b>Humidiity:</b> {weatherData.current?.main.humidity ?? 'No Value -'}%</p>
+                <p><b>Wind Speed</b> {weatherData.current?.wind.speed ?? 'No Value -'}m/s</p>
+                <p><b>Country</b> {weatherData.current?.sys.country ?? 'No Value'}</p>
               </div>
             </div>
 
@@ -422,9 +416,9 @@ function App() {
                 <h3>First 3 Entries:</h3>
                 {weatherData.forecast.list.slice(0,3).map((entry, index) => (
                   <div key={index} className="forecast-entry">
-                    <p><b>Time:</b> {entry.dt_txt}</p>
-                    <p><b>Temp:</b> {entry.main.temp}</p>
-                    <p><b>Weather:</b> {entry.weather[0].main}</p>
+                    <p><b>Time (Date & Hours): </b> {entry.dt_txt ?? 'No Value'}</p>
+                    <p><b>Temp:</b> {entry.main.temp ?? 'No Value'}</p>
+                    <p><b>Weather:</b> {entry.weather[0].main ?? 'No Value'}</p>
                   </div>
                   
                 ))}
@@ -434,7 +428,7 @@ function App() {
 
             <details className="raw-data">
               <summary>View Raw Data</summary>
-              <pre>{JSON.stringify(weatherData, null, 2)}</pre>
+              <pre>{JSON.stringify(weatherData, null, 2) ?? 'No Raw Data Availabe'}</pre>
             </details>
           </div>
         )}
