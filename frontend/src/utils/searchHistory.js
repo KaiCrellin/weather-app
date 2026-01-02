@@ -18,17 +18,25 @@ export function getSearchHistory() {
 
 export function addToSearchHistory(cityName, weatherData) {
     try {
+
+
+        if (!weatherData || !weatherData.current) {
+            console.warn(`[SEARCH HISTORY] Cannot add ${cityName} data is missing`)
+            return getSearchHistory();
+        }
+
+
         const history = getSearchHistory();
 
 
 
         const historyItem = {
             city: cityName,
-            country: weatherData.current.sys.country,
+            country: weatherData.current.sys?.country || 'N/A',
             timestamp: Date.now(),
-            temp: weatherData.current.main.temp,
-            weather: weatherData.current.weather[0].main,
-            icon: weatherData.current.weather[0].icon
+            temp: weatherData.current.main?.temp,
+            weather: weatherData.current.weather?.[0]?.main,
+            icon: weatherData.current.weather?.[0]?.icon
         }
 
         const filtered = history.filter(
@@ -36,19 +44,19 @@ export function addToSearchHistory(cityName, weatherData) {
         );
 
 
-        const updated = [historyItem, ...filtered];
+        const updated = [historyItem, ...filtered].slice(0, MAX_HISTORY_ITEMS);
 
 
-        const trimmed = updated.slice(0, MAX_HISTORY_ITEMS);
 
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 
 
         console.log(`[Search History] Added:`, cityName);
-        return trimmed;
+        return updated;
     } catch (error) {
         console.error(`[Search History] Error Saving to localStoarge`, error);
-        return getSearchHistory()
+        return history;
     }
 }
 

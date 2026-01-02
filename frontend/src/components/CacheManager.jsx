@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback} from 'react';
-import { getAllCachedCities, clearAllCache, formatCacheAge, getCacheStats, removeCachedWeather } from '../utils/cache.js';
+import { useState, useEffect,} from 'react';
+import { getAllCachedCities, clearAllCache, formatCacheAge, getCacheStats,} from '../utils/cache.js';
+import LoadingSpinner from './LoadingSpinner.jsx';
 import '../style/CacheManager.css'
 
 
@@ -8,38 +9,59 @@ function CacheManager() {
     const [cachedCities, setCachedCities] = useState([]);
     const [stats, setStats] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
-
-
-    
-
-    const loadCacheData = useCallback(() => {
-        setCachedCities(getAllCachedCities());
-        setStats(getCacheStats())
-    }, []);
+    const [isClearing, setIsClearing] = useState(false);
+    const [removingCity,  setRemovingCity] = useState(null)
 
     useEffect(() => {
         loadCacheData();
+    },[])
 
 
-        let interval;
+    useEffect(() => {
+        const REFRESH = 30000;
+
+
+        const intervalId = setInterval(() => {
+            console.log(`[APP] Updating Cache`)
+            loadCacheData();
+        }, REFRESH)
+
+        return () => clearInterval(intervalId);
+    }, [])
+
+
+    useEffect(() => {
         if (isExpanded) {
-            interval = setInterval(() => {
-                console.log(`[CACHE]Auto-Refreshing ages...`);
-                loadCacheData();
-            }, 15000);
-        }
-
-        return () => clearInterval(interval);
-    }, [isExpanded, loadCacheData]);
-
-
-
-    const handleClearCache = () => {
-        if (window.confirm('Are you sure you want to clear all cached weather data')) {
-        const cleared = clearAllCache();
-        console.log(`[CACHE MANAGER] CLeared`, cleared, 'Cache Entries');
             loadCacheData();
         }
+    }, [isExpanded])
+
+
+    const loadCacheData = () => {
+        const cities = getAllCachedCities();
+        const cacheStats = getCacheStats();
+        setCachedCities(cities);
+        setStats(cacheStats)
+    };
+    
+
+   
+
+
+    const handleClearCache = async () => {
+       if (window.confirm("Are you sure you want to clear all cached weather data?")) {
+        setIsClearing(true);
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+
+        const cleared = clearAllCache();
+        console.log(`[Cache Manage] Cleared`, cleared, 'Cache Entries');
+
+
+        loadCacheData();
+        setIsClearing(false);
+       }
     };
 
     if (!stats) return null;
@@ -53,6 +75,7 @@ function CacheManager() {
                 <button 
                     onClick={() => setIsExpanded(!isExpanded)}
                     className="cache-toggle-btn"
+                    disabled={isClearing}
                 >
 
                     {isExpanded ? '▼' : '▶'} {isExpanded ? 'Hide' : 'Show'} Details
@@ -70,7 +93,7 @@ function CacheManager() {
                 </div>
                 <div className='cache-stat'>
                     <span className="stat-label"> Expired:</span>
-                    <span className="stat-value valid">{stats.expired ?? 'No Value'}</span>
+                    <span className="stat-value invalid">{stats.expired ?? 'No Value'}</span>
                 </div>
                 <div className='cache-stat'>
                     <span className="stat-label"> Duration:</span>
@@ -79,19 +102,17 @@ function CacheManager() {
             </div>
             {isExpanded && (
                 <div className="cache-details">
+                    <p className="auto-refresh-note"> List Auto Updates every 30s</p>
                     {cachedCities.length === 0 ? (
-                        <>
                         <p className="cache-empty">No Cached Data</p>
-                        <p className="cache-empty">Refresh by collapsing Details</p>
                         
-                        </>
                     ) : (
                         <>
                             <div className="cache-list">
                                 {cachedCities.map((city, index) => (
                                     <div 
                                         key={index}
-                                        className={`cache-item ${city.isExpired ? 'expired' : ''}`}
+                                        className={`cache-item ${city.isExpired ? 'expired' : ''} ${removingCity === city.city ? 'removing' : ''}`}
                                     >
                                         <span className="cache-city-name">
                                             {city.city.charAt(0).toUpperCase() + city.city.slice(1)}
@@ -100,22 +121,29 @@ function CacheManager() {
                                             {formatCacheAge(city.age)}
                                             {city.isExpired && ' (expired)'}
                                         </span>
-                                        <button
-                                            onClick={() => removeCachedWeather(city.city)}
-                                            className='delete-item-btn'
-                                            title='Delete This Entry'
-                                        >
-                                            X
-                                        </button>
+                                        {removingCity === city.city && (
+                                            <div className="cache-item-loading">
+                                                <LoadingSpinner show={true} />
+                                            </div>
+                                        )}
+                                        
                                     </div>
                                 ))}
                             </div>
-                            <button
+                            {isClearing ? (
+                                <div className="cache-clearing"> 
+                                    <LoadingSpinner show={true} message='Clearing Cache...'/>
+                                </div>
+                            ) : (
+                                <button
                                 onClick={handleClearCache}
                                 className="clear-cache-btn"
-                            >
-                                Clear All Cache
-                            </button>
+                                disabled={isClearing}
+                                
+                                >
+                                    Clear All Cache
+                                </button>
+                            )}
                         </>
                     )}
                 </div>

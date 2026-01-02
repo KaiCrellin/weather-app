@@ -1,7 +1,11 @@
 @media screen and (max-width: 700px) {
   .history-item {
     flex-direction: column;
-    gap: 8px;
+    width: 100%;
+  }
+
+  .history-remove-btn {
+    width: 100%;
   }
 }
 
@@ -76,13 +80,12 @@
 .history-item-button {
   flex: 1;
   display: flex;
-  flex-direction: coliumn;
-  gap: 8px;
-  padding: 12px 15px;
-  background: none;
+  gap: 14px;
+  padding: 3rex;
+  background: whitesmoke;
   border: none;
   cursor: pointer;
-  text-align: left;
+
   transform: background 0.3s;
 }
 
@@ -114,7 +117,7 @@
   border-radius: 3px;
 }
 
-.histroy-item-weather {
+.history-item-weather {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -139,18 +142,18 @@
   color: #95a5a6;
 }
 
-.histroy-remove-btn {
-  width: 45px;
+.history-remove-btn {
   background: none;
-  border: none;
-  border-left: 1px solid #ecf0f1;
+  border: 1px solid #e74c3c;
+  align-self: center;
+  color: #e74c3c;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 14px;
+  padding: 3rex;
   cursor: pointer;
-  color: #95a5a6;
-  font-size: 1.2rem;
-  transform: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transform: background 0.3s;
 }
 
 .history-remove-btn:hover {

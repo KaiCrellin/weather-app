@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'weather_cache_';
-const CACHE_DURATION = 10 * 60 * 1000;
+const CACHE_DURATION = 10 * 120 * 1000;
 
 
 
@@ -32,7 +32,7 @@ export function getCachedWeather(city) {
             localStorage.removeItem(key);
             return null;
         }
-        console.log(`[CACHE]Hit:`, city, `(${Math.round(age / 1000)}`);
+        console.log(`[CACHE]Hit:`, city, `${Math.round(age / 1000)}`, 'Old');
         return {
             data,
             timestamp,
