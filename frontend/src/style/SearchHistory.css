@@ -1,13 +1,4 @@
-@media screen and (max-width: 700px) {
-  .history-item {
-    flex-direction: column;
-    width: 100%;
-  }
 
-  .history-remove-btn {
-    width: 100%;
-  }
-}
 
 .search-history {
   background: #f8f9fa;
