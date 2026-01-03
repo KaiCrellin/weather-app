@@ -16,7 +16,7 @@ React + Vite frontend application consuming the backend API.
 
 
 
-##Installation
+## Installation
 ```bash
 cd frontend
 npm install
@@ -105,7 +105,7 @@ const validateResult = await ValidateConnection();
     - Search button should be disabled
 4. **Console Logs**
     - All requests should log to console
-    - Response dta should be visable
+    - Response data should be visable
     - Errors should show full details
 
 
@@ -122,7 +122,7 @@ const validateResult = await ValidateConnection();
 - Console logging
 
 
-### Phase 5 Weather UI Logic (Ongoing) [o]
+### Phase 5 Weather UI Logic (Completed) [x]
 - Search validation
 - Loading states
 - Data transformation
@@ -130,8 +130,7 @@ const validateResult = await ValidateConnection();
 - Chache management
 
 
-### Phase 6 Visualization (Future) []
-- Chart.js Forecast graphs
+### Phase 6 Visualization (Completed) [Z]
 - Leaflet maps
 - Weather icons
 - Responsive design
