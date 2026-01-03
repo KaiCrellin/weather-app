@@ -1,14 +1,3 @@
-@media screen and (max-width: 700px) {
-  .history-item {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .history-remove-btn {
-    width: 100%;
-  }
-}
-
 .search-history {
   background: #f8f9fa;
   border-radius: 8px;
@@ -109,6 +98,13 @@
   color: #e74c3c;
 }
 
+.history-city:hover {
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 10px;
+  transform: translateY(1px);
+}
+
 .history-country {
   font-size: 0.85rem;
   color: #3498db;
@@ -150,15 +146,16 @@
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 600;
-  gap: 14px;
+  margin-top: 10px;
   padding: 3rex;
   cursor: pointer;
-  transform: background 0.3s;
 }
 
 .history-remove-btn:hover {
   background: #e74c3c;
   color: white;
+  transform: translateY(-1px);
+  transition: all 0.3s;
 }
 
 .history-note {
@@ -168,4 +165,45 @@
   text-align: center;
   padding-top: 15px;
   border-top: 1px solid #dee2e6;
+}
+
+@media screen and (max-width: 700px) {
+  .history-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .history-item-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 1380px) {
+  * {
+    font-size: 1.2rem;
+  }
+  .history-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .history-item-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .history-item-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .history-country {
+    font-size: 1.2rem;
+  }
+
+  .history-time {
+    font-size: 1.2rem;
+  }
 }

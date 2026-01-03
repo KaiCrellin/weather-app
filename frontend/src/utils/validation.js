@@ -79,7 +79,7 @@ export function getInputSuggestion(city) {
         'tokio': 'Tokyo',
         'newyork': 'New York',
         'losangles': 'Los Angeles',
-        'sanfrancisco': ' San Francisco',
+        'sanfrancisco': 'San Francisco',
         'lasvegas': 'Las Vegas'
 
     };

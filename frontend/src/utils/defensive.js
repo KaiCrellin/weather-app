@@ -30,7 +30,7 @@ export function validateWeatherData(data) {
 
 
     if (!data) {
-        error.push(`Weather data is null or undefined`);
+        errors.push(`Weather data is null or undefined`);
         return { isValid: false, errors, warnings };
     }
 

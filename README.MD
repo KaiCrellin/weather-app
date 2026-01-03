@@ -246,15 +246,14 @@ GET /api/weather?city={cityName}
 - API service layer
 - backend connection
 
-### Phase 5: Weather UI Logic (Ongoing) [o]
+### Phase 5: Weather UI Logic (Completed) [X]
 
 - Search functionality
 - Data validation
 - Display Weather Information
 
-### Phase 6: Visualisation
+### Phase 6: Visualisation (Completed) [X]
 
-- Chart.js temperature trends
 - Leaflet Map intergration
 
 # Project Structure (Detailed)

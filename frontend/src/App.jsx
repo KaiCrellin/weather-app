@@ -14,7 +14,10 @@ import SearchHistory from './components/SearchHistory.jsx';
 import CacheIndicator from './components/CacheIndicator.jsx';
 import CacheManager from './components/CacheManager.jsx';
 import WeatherDisplay from './components/WeatherDisplay.jsx';
+import WeatherMap from './components/WeatherMapData.jsx';
 import './App.css'
+import 'leaflet/dist/leaflet.css';
+
 
 
 
@@ -237,6 +240,7 @@ function App() {
  
 
   return (
+    /*
     <div className="app">
       <LoadingSpinner
         show={weatherLoading}
@@ -352,8 +356,16 @@ function App() {
                 Clear Results
               </button>
             )}
+
+            
           </div>
         </form>
+
+        {weatherData && (
+          <div className="map-container">
+            <WeatherMap weatherData={weatherData} />
+          </div>
+        )}
 
         <SearchHistory 
           history={searchHistory}
@@ -395,6 +407,9 @@ function App() {
                 onRefresh={handleRefresh}
               />
             )}
+
+
+            
 
 
 
@@ -472,6 +487,159 @@ function App() {
       </section>
     </div>
   )
-};
+  */
+
+  <div className="app-container">
+    <LoadingSpinner
+      show={weatherLoading}
+      message='Fetching Weather Data'
+      overlay={true}
+    />
+
+
+
+    {/* Header */}
+    <header className="app-header">
+        <h2>Weather Dashboard</h2>
+        <p>Phase 6 : Leaflet Visualization with dynamic UI for mobiles</p>
+      </header>
+      <section className="health">
+        <h2>Backend Status</h2>
+        {healthLoading ? (
+          <LoadingSpinner show={true} message='Checking Backend...' />
+        ) : healthStatus.success ? (
+          <div className="health-success">
+          <p>Backend Connected</p>
+          <details>
+            <summary>View Details</summary>
+            <pre>{JSON.stringify(healthStatus.data, null, 0 )}</pre>
+          </details>
+          </div>
+        ) : (
+          <div className="health-error"> 
+            <p>Backend Connection Failed</p>
+            <pre>{JSON.stringify(healthStatus.error, null, 2)}</pre>
+            <p className="help-text">
+              Make Sure backend is runnign: <code>cd backed && npm run dev</code>
+            </p>
+          </div>
+        )}
+      </section>
+
+
+    <div className="main-layout">
+      <aside className="sidebar">
+        <div className="sidebar-section">
+          <h3>System Status</h3>
+          {healthLoading ? (
+            <LoadingSpinner show={true} message="Checking..."/>
+          ) : (
+            <div className={`status ${healthStatus.success ? 'online': 'offline'}`}>
+              {healthStatus.success ? 'Backend Online' : 'Backend Offline'}
+            </div>
+          )}  
+          
+
+          <details className="status-details">
+            <summary>Connection Specs</summary>
+            <pre>{JSON.stringify(healthStatus?.data, null,  2)}</pre>
+          </details>
+        </div> 
+
+
+
+        <div className="sidebar-section">
+          <h3>Data Management</h3>
+          <CacheManager />
+          
+        </div>
+      </aside>
+
+
+      <main className="content-area">
+        <section className="search-card">
+          <form onSubmit={handleSearch} className="search-form">
+            <div className="input-group">
+              <input
+              id="city-search" 
+              type="text"
+              value={cityInput}
+              onChange={handleInputChange}
+              placeholder='Search City (e.g Tokyo, London)'
+              className={validationError ? 'input-error' : ''}
+              disabled={weatherLoading}
+              />
+              {cityInput && (
+                <button type="button" onClick={handleClear} className="btn-clear">X</button>
+              )}
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={weatherLoading || !healthStatus?.success || validationError !== null }
+                >
+                  {weatherLoading ? <span className="spinner-small"></span> : 'Search'}
+              </button>
+            </div>
+
+            {validationError && <p className="error-text">{validationError}</p>}
+
+
+
+            {inputSuggestion?.suggestion && (
+              <div className="suggestion-box">
+                {inputSuggestion.reason}
+                <button type="button" onClick={handleSuggestionClick}>
+                  {inputSuggestion.suggestion}
+                </button>
+              </div>
+            )}
+          </form>
+        </section>
+
+
+
+        <div className="dashboard-grid">
+          <div className="primary-column">
+            {weatherData && (
+              <div className="map-card">
+                <WeatherMap weatherData={weatherData}/>
+              </div>
+            )}
+
+
+
+            {weatherError && (
+              <div className="error-card">
+                <h4>Search Error</h4>
+                <p>{weatherError.message}</p>
+              </div>
+            )}
+
+
+            {weatherData && (
+              <div className="results-card"> 
+                <CacheIndicator
+                  fromCache={cacheInfo?.fromCache}
+                  age={cacheInfo?.age}
+                  onRefresh={handleRefresh}
+                />
+                
+                <WeatherDisplay weatherData={weatherData} />
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+      <div className="secondary-column">
+           <SearchHistory
+              history={searchHistory}
+              onSelectCity={handleHistorySelect}
+              onRemoveCity={handleRemoveFromHistory}
+              onClearHistory={handleClearHistory}
+            />
+        </div>
+    </div>
+  </div>
+)};
 
 export default App;

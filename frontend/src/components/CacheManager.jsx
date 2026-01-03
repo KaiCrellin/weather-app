@@ -40,7 +40,7 @@ function CacheManager() {
     const loadCacheData = () => {
         const cities = getAllCachedCities();
         const cacheStats = getCacheStats();
-        setCachedCities(cities);
+         setCachedCities(cities);
         setStats(cacheStats)
     };
     

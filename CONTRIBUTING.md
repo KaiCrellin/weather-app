@@ -4,11 +4,11 @@
 
 = 'main' - (Phase 1,2,3 Complete)
 
-- 'Phase-4-frontend-foundation - current development
-- Phase-5-weather-ui-logic' - Future dev
-- 'Phase-6-visualisation - Future Dev
+- 'Phase-4-frontend-foundation - Completed
+- Phase-5-weather-ui-logic' - Completed
+- 'Phase-6-visualisation - Completed
 
-##Working on a phase
+
 
 ### Start new phase
 
@@ -58,7 +58,7 @@ git push origin phase-x-description
 #Merge to main (via PR or directly)
 git chechout main
 
-git merge phase-x-description
+git merge phase-x-description Or Merge through GitHub (My Preference)
 
 git push origin main
 ```

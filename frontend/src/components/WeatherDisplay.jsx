@@ -103,7 +103,7 @@ function  WeatherDisplay({ weatherData }) {
                         <div className="forecast-sample">
                             <h5>Next 3 Entries:</h5>
                             <div className="forecast-grid">
-                                {forecastList.slice(0,3).map((entry, index) => {
+                                {forecastList.slice(0,6).map((entry, index) => {
                                 const entryTemp = safeGet(entry, 'main.temp');
                                 const entryWeather = safeGet(entry, 'weather.0.description', ' Unknown');
                                 const entryTime = safeGet(entry, 'dt_txt', 'N/A');
@@ -125,7 +125,11 @@ function  WeatherDisplay({ weatherData }) {
                                         <p className="forecast-temp"> Temperature: {formatTemperature(entryTemp)}</p>
                                         <p className="forecast-weather"> Condition: {entryWeather}</p>
 
+
+                                        
+
                                     </div>
+                                    
                                 );
                             })}
                             </div>

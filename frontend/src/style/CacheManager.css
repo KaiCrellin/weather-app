@@ -179,3 +179,10 @@
   background: #c0392b;
   transform: translateY(-1px);
 }
+@media screen and (max-width: 700px) {
+  .cache-manager-header h3 {
+    border-right: 1px solid #3498db;
+    padding: 10px;
+    margin: 0 10px 0 10px;
+  }
+}

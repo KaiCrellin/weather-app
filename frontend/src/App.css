@@ -1,421 +1,443 @@
-/*
-  @media and screen to target devices with a maximum width of 700px
-*/
-@media screen and (max-width: 700px) {
-  .search-form {
-    flex-direction: column;
-  }
+/* =========================================================
+   Layout Containers
+   ====================================================== */
 
-  .btn-primary .btn-secondary {
-    margin: auto;
-  }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100vh;
+  padding: 10px 15px;
+  background-color: lightgray;
 }
 
-/*
- Entire Page Style
-*/
-* {
-  margin: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+.main-layout {
+  display: grid;
+  grid-template-columns: 400px 1fr 320px; /* sidebar | content | history */
+  gap: 1px;
+  background-color: #dee2e6;
+  flex: 1;
 }
 
-/*
- Body Style
-*/
-
-body {
-  color: #333;
+.dashboard-grid {
+  display: grid;
+  gap: 20px;
 }
 
-/*
-  Main Container
-*/
-.app {
-  max-width: fit-content;
-  margin: auto;
-  padding: 20px;
+.primary-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* 
-  Header Section
-*/
+/* =========================================================
+   Header / Top Status
+   ====================================================== */
+
 .app-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
   text-align: center;
-  margin-bottom: 40px;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 }
 
-/*
-  Header Heading
-*/
-.app-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #415468;
+header p {
+  color: #27ae60;
 }
 
-/*
-  Header Text
-*/
-.app-header p {
-  color: #7f8c8d;
-  font-size: 1.1rem;
-}
+/* =========================================================
+   Typography & Headings
+   ====================================================== */
 
-/*
-  Section Styling
-*/
-section {
-  background: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/*
- Header Styles
-*/
 h2 {
-  margin-bottom: 15px;
-  color: #2c3e50;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 10px;
+  color: black;
+  font-size: 3.5rem;
 }
 
-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #34495e;
+section h2 {
+  color: black;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
+section {
+  border-radius: 4px;
+}
+
+h3,
 h4 {
-  margin-top: 15px;
-  margin-bottom: 10px;
-  color: #7f8c8d;
+  color: black;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
-/* Health Status */
-.health-section p {
+h5 {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.sidebar-section h3 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3498bd;
+}
+
+/* =========================================================
+   Columns (Sidebar / Content / History)
+   ====================================================== */
+
+.sidebar,
+.content-area,
+.secondary-column {
+  background: white;
+  padding: 20px;
+}
+
+.sidebar {
+  border-right: 1px solid #dee2e6;
+}
+
+.secondary-column {
+  border-left: 1px solid #dee2e6;
+  background: #fafafa;
+}
+
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+/* =========================================================
+   Status / Health / Messages
+   ====================================================== */
+
+.status {
+  padding: 10px 15px;
+  border-radius: 4px;
   margin: 10px 0;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-/*
-  Health Success Message
-*/
+.status.online {
+  color: #27ae60;
+  font-weight: bold;
+  background: #d4edda;
+  border: 1px solid #27de60;
+}
+
+.status.offline {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.status-offline {
+  background: #fadbd8;
+  border: 1px solid #c0392b;
+}
+
+.status-details summary {
+  cursor: pointer;
+  padding: 8px;
+  background-color: #34495e;
+  color: white;
+  border-radius: 4px;
+  user-select: none;
+  font-size: 0.9rem;
+}
+
+.auto-refresh-note {
+  color: black;
+}
+
+.health {
+  background-color: #2c3e48;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.health h2 {
+  color: white;
+  margin-bottom: auto 10px;
+}
+
+.health details summary {
+  color: white;
+}
+
 .health-success {
   color: #27ae60;
-  background: #d5f4e6;
-  padding: 15px;
-  border-radius: 4px;
-  border-left: 4px solid #27ae60;
-}
-
-/*
-  Health Error Message
-*/
-.health-error {
-  color: #c0392b;
-  background: #fadbd8;
-  padding: 15px;
-  border-radius: 4px;
-  border-left: 4px solid #c0392b;
-}
-
-/*
-  Help Text
-*/
-.help-text {
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-/*
-  Help Text Code Section
-*/
-.help-text code {
-  background: #34495e;
-  color: #ecf0f1;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-family: "Courier New", monospace;
-}
-
-/* Search Form */
-.search-form {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  font-size: 1.4rem;
+  align-items: center;
+  gap: 15px;
 }
 
-/*
-  Search City Input Field
-*/
-.search-input {
-  flex: 1;
-  padding: 12px;
-  font-size: 1rem;
-  border: 2px solid #bdc3c7;
+.error-text {
+  align-items: center;
   border-radius: 4px;
-  transition: border-color 0.3s;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: red;
+  border: 1px solid #c0391b;
+  background: none;
+  padding: 3rex;
 }
 
-/*
-  Search input focus change
-*/
-.search-input:focus {
-  outline: none;
-  border-color: #3498db;
-}
-/* Disable Search input change*/
-.search-input:disabled {
-  background: #ecf0f1;
-  cursor: not-allowed;
+.error-card {
+  background: #fadbd8;
+  border: 1px solid #e74c3c;
+  border-left: 4px solid #e74c3c;
+  padding: 20px;
+  border-radius: 8px;
+  color: #c0392b;
 }
 
-/* Weather Section Input Wrap*/
-.input-wrapper {
-  position: relative;
-  flex: 1;
+.error-card h4 {
+  margin-top: 0;
+  color: #c0392b;
 }
-/* Weather Section, Input Wrap, Search Input*/
-.input-wrapper .search-input {
-  display: relative;
-  width: 100%;
+
+.error-card p {
+  margin: 10px 0 0 0;
 }
-/* Weather Section, Input Wrap,  Input Error*/
-.input-error {
-  border-color: #e74c3c !important;
-  flex: 1;
+
+/* =========================================================
+   Content Cards / Search / Results
+   ====================================================== */
+
+.search-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #f1f3f5;
+  border-radius: 8px;
+}
+
+.results-card {
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================================
+   Map / Forecast
+   ====================================================== */
+
+.map-card {
+  height: 400px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  background-blend-mode: white;
+  box-shadow: 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.forecast-entry {
+  height: 300px;
+  width: 300px;
+}
+
+.forecast-icon {
   position: sticky;
 }
-/* Input Error focus change*/
-.input-error:focus {
-  border-color: #c0392b !important;
-}
 
-/* Validaton Error Message*/
-.validation-error {
-  background: #fadbd7;
-  color: #c0392b;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  margin-top: 5px;
-  border-left: 3px solid #c0392b;
-}
-/* Input Suggestion Message*/
-.input-suggestion {
-  background: #d7eaf8;
-  color: #1f618d;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  margin-top: 5px;
-  border-left: 3px solid #3498db;
+/* =========================================================
+   Form Controls / Buttons
+   ====================================================== */
+
+.input-group {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
 }
 
-/* Input Section Buttons */
-.btn-primary,
-.btn-secondary {
-  padding: 12px 24px;
-  font-size: 1rem;
-  border: none;
+.input-group input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ced4da;
   border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
-  font-weight: 600;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.input-group input:disabled {
+  background-color: #ecf0f1;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .btn-primary {
   background-color: #3498db;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  background-color: #bdc3c7;
 }
 
 .btn-primary:hover:not(:disabled) {
   background-color: #2980b9;
   transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(51, 152, 219, 0.3);
+  color: greenyellow;
+  transition: all 0.3s;
 }
 
 .btn-primary:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.btn-primary:disabled {
-  background-color: #bdc3c7;
-  cursor: not-allowed;
+.btn-clear {
+  padding: 10px;
+  color: #c0392b;
+  background: none;
+  border: 1px solid #c0392b;
+  width: 81px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
 
-.btn-secondary {
-  background-color: #95a5a6;
+.btn-clear:hover {
+  background: #e74c3c;
   color: white;
-}
-.btn-secondary:hover {
-  background-color: #677577;
-  background: blur(2px);
+  transform: translateY(-1px);
 }
 
-.suggestion-button {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 4px 12px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: background 0.3s;
+/* =========================================================
+   Utilities
+   ====================================================== */
+
+pre {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  max-height: 200px;
+  white-space: pre-wrap;
 }
 
-.suggestion-button:hover {
-  background: #2980b9;
+.weather-data-item {
+  font-size: 1.3rem;
+  font-weight: 40;
 }
 
-.button-group {
+.suggestion-box {
+  margin-top: 8px;
   display: flex;
-  gap: 10px;
-}
-
-.button-group .btn-secondary {
-  margin-top: 0;
-}
-
-.button-content {
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  justify-content: space-between;
+  font-weight: 600;
+  color: blue;
+  border: 1px solid #3498db;
+  background: none;
+  padding: 3rex;
   gap: 8px;
 }
 
-.button-spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-  display: inline-block;
-}
-
-.clear-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: #95a5a6;
-  cursor: pointer;
-  padding: 5px;
-  line-height: 1;
-  transition: color 0.3s;
-}
-
-.clear-button:hover {
-  color: #e74c4c;
-}
-
-.clear-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-/* Weather Results */
-.weather-error {
-  background: #fadbd8;
-  border-left: 4px solid #c0392b;
-  padding: 15px;
+.suggestion-box button {
+  align-items: center;
   border-radius: 4px;
-  color: #c0392b;
-}
-
-.weather-results {
-  margin-top: 20px;
-}
-
-.current-weather,
-.forecast-preview {
-  background: #ecf0f1;
-  padding: 15px;
-  border-radius: 4px;
-  margin-top: 15px;
-}
-
-.weather-data p {
-  margin: 8px 0;
-  line-height: 1.6;
-}
-
-.forecast-sample {
-  margin-top: 10px;
-}
-
-.forecast-entry {
-  background: white;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border-left: 3px solid #3498db;
-}
-
-.forecast-entry p {
-  margin: 5px 0;
-}
-
-/* Raw Data */
-.raw-data {
-  margin-top: 20px;
-}
-
-.raw-data summary {
-  cursor: pointer;
-  padding: 10px;
-  background: #34495e;
-  color: white;
-  border-radius: 4px;
-  user-select: none;
-}
-
-.raw-data summary:hover {
-  background: #2c3e50;
-}
-
-.raw-data pre {
-  background: #2c3e50;
-  color: #ecf0f1;
-  padding: 15px;
-  border-radius: 4px;
-  overflow-x: auto;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Instructions */
-.instructions ol {
-  margin-left: 10px;
-}
-
-.instructions li {
-  margin: auto;
-  line-height: 2;
-}
-
-/* JSON Display */
-pre {
-  background: #086eeb;
-
-  color: #ecf0f1;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
   font-size: 0.85rem;
+  font-weight: 600;
+  color: blue;
+  border: 1px solid #3498db;
+  background: none;
+  padding: 3rex;
+}
+
+.suggestion-box button:hover {
+  background-color: #3498db;
+  color: white;
+  transform: translateY(-1px);
+  transition: all 0.3s;
+}
+
+/* =========================================================
+   Media Queries
+   ====================================================== */
+
+@media screen and (max-width: 1380px) {
+  .app-header h2 {
+    font-size: 2rem;
+  }
+
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .map-card {
+    height: 300px;
+  }
+
+  .side-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .status-details pre {
+    font-size: 0.7rem;
+  }
+
+  .forecast-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .forecast-entry {
+    width: auto;
+    font-size: 0.8rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .history-item,
+  .history-item-button {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .history-success {
+    display: unset;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .health-success {
+    display: block;
+  }
 }
