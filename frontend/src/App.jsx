@@ -501,9 +501,9 @@ function App() {
     {/* Header */}
     <header className="app-header">
         <h2>Weather Dashboard</h2>
-        <p>Phase 5 : Weather UI Logic Complete</p>
+        <p>Phase 6 : Leaflet Visualization with dynamic UI for mobiles</p>
       </header>
-      <section>
+      <section className="health">
         <h2>Backend Status</h2>
         {healthLoading ? (
           <LoadingSpinner show={true} message='Checking Backend...' />
@@ -538,6 +538,7 @@ function App() {
               {healthStatus.success ? 'Backend Online' : 'Backend Offline'}
             </div>
           )}  
+          
 
           <details className="status-details">
             <summary>Connection Specs</summary>
@@ -622,19 +623,21 @@ function App() {
                   age={cacheInfo?.age}
                   onRefresh={handleRefresh}
                 />
-                <SearchHistory
-              history={searchHistory}
-              onSelectCity={handleHistorySelect}
-              onRemoveCity={handleRemoveFromHistory}
-              onClearHistory={handleClearHistory}
-              />
+                
                 <WeatherDisplay weatherData={weatherData} />
               </div>
             )}
           </div>
-          
         </div>
       </main>
+      <div className="secondary-column">
+           <SearchHistory
+              history={searchHistory}
+              onSelectCity={handleHistorySelect}
+              onRemoveCity={handleRemoveFromHistory}
+              onClearHistory={handleClearHistory}
+            />
+        </div>
     </div>
   </div>
 )};

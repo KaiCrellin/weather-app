@@ -7,12 +7,13 @@ const CACHE_DURATION = 10 * 120 * 1000;
 
 
 function getCacheKey(city) {
-    return `${CACHE_PREFIX}${city.toLowerCase()}`;
+    return `${CACHE_PREFIX}${city.toLowerCase().trim()}`;
 }
 
 export function getCachedWeather(city) {
     try {
         const key = getCacheKey(city);
+        console.log(key)
         const cached = localStorage.getItem(key);
 
 
@@ -110,6 +111,7 @@ export function getAllCachedCities() {
                     const city = key.replace(CACHE_PREFIX, '');
                     const data = JSON.parse(localStorage.getItem(key));
                     const age = Date.now() - data.timestamp;
+                   
 
 
                     cached.push({
