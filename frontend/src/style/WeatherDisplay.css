@@ -189,8 +189,9 @@
     font-size: 1.5rem;
   }
 
-
-  .searchcard, .sidebar, .content-area {
+  .searchcard,
+  .sidebar,
+  .content-area {
     padding: 15px;
   }
 
@@ -202,7 +203,6 @@
     padding: 15px;
   }
 
-
   .input-group input {
     padding: 8px;
     font-size: 0.9rem;
@@ -213,5 +213,3 @@
     font-size: 0.9rem;
   }
 }
-
-

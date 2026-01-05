@@ -2,7 +2,6 @@
 
 This is a full-stack weather application displayting weather and 5 day forecast using the OpenWeather API.
 
-
 ## Tech Stack
 
 **backend**
@@ -310,8 +309,6 @@ weather-app
 ├──README.MD
 └──.gitignore
 ```
-
-
 
 ## Backend Tests
 

@@ -71,6 +71,7 @@ npm run dev ### DEVELOPMENT - AUTO RESTART NODEMON
 - '500' - Server or API Errror
 
 ## Project Structure
+
 ```
 weather-app
 ├──backend
@@ -288,7 +289,7 @@ curl  "http://localhost:5000/api/weather"
 - [x] Health Check endpoint returns correct strucutre
 - [x] Weather endpoint validates city parametr
 - [x] Error handling for all failure modes
-- [X] Demo Mode returns correct data
+- [x] Demo Mode returns correct data
 - [x] Live Mode calls OpenWeather Correctly
 
 ## Server won't start

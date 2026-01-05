@@ -57,8 +57,8 @@
 **400 - Missing City**
 
 ```json
-{ 
-  "error": "City parameter is required" 
+{
+  "error": "City parameter is required"
 }
 ```
 
@@ -74,15 +74,18 @@
 **404 - City Not Found**
 
 ```json
-{ 
-  "error": "City not found", "city": "...", "message": "..." 
+{
+  "error": "City not found",
+  "city": "...",
+  "message": "..."
 }
 ```
 
 **500 - Server Error**
 
 ```json
-{ 
-  "error": "Internal server error", "message": "..." 
+{
+  "error": "Internal server error",
+  "message": "..."
 }
 ```
