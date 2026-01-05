@@ -1,6 +1,6 @@
 // Set Storage key and max entires
 const STORAGE_KEY = 'weather-search-history';
-const MAX_HISTORY_ITEMS = 5; // 10
+const MAX_HISTORY_ITEMS = 10; // 10
 
 
 
