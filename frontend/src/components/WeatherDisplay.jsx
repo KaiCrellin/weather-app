@@ -13,7 +13,7 @@ function  WeatherDisplay({ weatherData }) {
         )
     }
 
-q   // Esablish current and forecast falling back on empty objects
+   // Esablish current and forecast falling back on empty objects
     const current = weatherData.current || {};
     const forecast = weatherData.forecast || {};
 

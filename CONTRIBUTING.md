@@ -8,6 +8,8 @@
 - Phase-5-weather-ui-logic' - Completed
 - 'Phase-6-visualisation - Completed
 
+
+
 ### Start new phase
 
 ```bash
@@ -19,7 +21,6 @@ git add .
 git commit -m "descriptive message of changes"
 git push origin phase-x-description
 ```
-
 ### Complete Phase
 
 ```bash
@@ -43,7 +44,6 @@ git push origin main
 
 = 'Feat:' - New Feature
 = 'Fix:' - Bug Fix
-
 - 'Docs:' - Documentation Only
 - 'Refactor:' - Code restructuring
 - 'Test' - adding tests
@@ -65,7 +65,7 @@ git diff --cached
 
 ```
 
-### if sensitive data is commited take these steps.
+### if sensitive data is commited take these steps. 
 
 ```bash
 
@@ -176,14 +176,11 @@ git commit -m "resolve merge conflict"
 ```
 
 ### Reset To Remote
-
 ```bash
 git fetch origin
 git reset --hard origin/main
 ```
-
 ### View Remote URL
-
 ```bash
 git remote -v
 ```
