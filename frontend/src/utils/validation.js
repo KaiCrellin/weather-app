@@ -34,13 +34,13 @@ export function validatCityInput(input) {
     }
 
 
-    // Only allow spaces and letters
-    const validPattern = /^[a-zA-Z\s]+$/;
+
+    const validPattern = /^[\p{L}\p{M}\s\-']+$/u;
     if (!validPattern.test(trimmed)) {
         return {
             isValid: false,
             sanitized: trimmed,
-            error: 'City name can only contain letters and spaces'
+            error: 'City name can only contain letters, accents, spaces, hyphens, and apostrophes.'
         };
     }
 
