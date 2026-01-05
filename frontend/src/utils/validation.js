@@ -1,10 +1,12 @@
+//**
+//  */ Validate City input
 export function validatCityInput(input) {
 
 
-
+    // Trim input
     const trimmed = input.trim();
 
-
+    // Ensure trim
     if (!trimmed) {
         return {
             isValid: false,
@@ -13,7 +15,7 @@ export function validatCityInput(input) {
         };
     }
 
-
+    // Must be more than 3 
     if (trimmed.length < 3) {
         return {
             isValid: false,
@@ -22,7 +24,7 @@ export function validatCityInput(input) {
         };
     }
 
-
+    // Cant be more than 50
     if (trimmed.length > 50) {
         return {
             isValid: false,
@@ -32,7 +34,7 @@ export function validatCityInput(input) {
     }
 
 
-
+    // Only allow spaces and letters
     const validPattern = /^[a-zA-Z\s]+$/;
     if (!validPattern.test(trimmed)) {
         return {
@@ -42,7 +44,8 @@ export function validatCityInput(input) {
         };
     }
 
-
+    // cities cannot containe consequitve spacing
+    // e,g New York !== New  York
     if (/\s{2,}/.test(trimmed)) {
         return {
             isValid: false,
@@ -53,7 +56,7 @@ export function validatCityInput(input) {
 
 
 
-
+    // return if passed all.
     return {
         isValid: true,
         sanitized: trimmed,
@@ -61,18 +64,24 @@ export function validatCityInput(input) {
     }
 }
 
-
+//**
+//  */ Format City name
 export function formatCityName(city) {
     return city
+        //split entry
         .split(' ')
+        // map over; Example: CharAt(0) = N slice() = ew = New
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        // Join the two works back together ["New" "York"] -> "New York"
         .join(' ');
 }
 
-
+//**
+//  */ Input suggestion
 export function getInputSuggestion(city) {
+    // Sanitize input
     const lower = city.toLowerCase();
-
+    // common misspellings
     const corrections = {
         'londom': 'London',
         'lonon': 'London',
@@ -85,7 +94,7 @@ export function getInputSuggestion(city) {
     };
 
 
-
+    // if city input is one of the correction/ return suggestion adn reason
     if (corrections[lower]) {
         return {
             suggestion: corrections[lower],
@@ -93,7 +102,7 @@ export function getInputSuggestion(city) {
         };
     }
 
-
+    // Multi City name mut have spaces newyork -> invalid
     if (lower.includes('new') && !lower.includes(' ')) {
         return {
             suggestion: null,

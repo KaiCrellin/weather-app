@@ -6,17 +6,21 @@ import '../style/CacheManager.css'
 
 
 function CacheManager() {
+    // Cached Cities and Stats
     const [cachedCities, setCachedCities] = useState([]);
     const [stats, setStats] = useState(null);
+    // IsExpanded State
     const [isExpanded, setIsExpanded] = useState(false);
+    // isClearing State
     const [isClearing, setIsClearing] = useState(false);
+    // State for removing individual city - not intergrated.
     const [removingCity,  setRemovingCity] = useState(null)
-
+    // Populate with cache data
     useEffect(() => {
         loadCacheData();
     },[])
 
-
+    // 30 Seconds update interval for cache data calling to loadCacheData()
     useEffect(() => {
         const REFRESH = 30000;
 
@@ -25,45 +29,50 @@ function CacheManager() {
             console.log(`[APP] Updating Cache`)
             loadCacheData();
         }, REFRESH)
-
+        // Returns with cleanup
         return () => clearInterval(intervalId);
     }, [])
 
-
+    // Refresh data upon expanding the details. 
     useEffect(() => {
         if (isExpanded) {
             loadCacheData();
         }
     }, [isExpanded])
 
-
+    // LoadCacheData constant calling to 
+    // getAlCachedCities( | getCacheStats()
+    // setting the state with cities and cache stats
     const loadCacheData = () => {
         const cities = getAllCachedCities();
         const cacheStats = getCacheStats();
-         setCachedCities(cities);
+        setCachedCities(cities);
         setStats(cacheStats)
     };
     
 
    
-
-
+    // Handle clear cache
     const handleClearCache = async () => {
+        // Window confirmation
        if (window.confirm("Are you sure you want to clear all cached weather data?")) {
+        // if ues set to true
         setIsClearing(true);
-
+        // Await for timeout resolve
         await new Promise(resolve => setTimeout(resolve, 500));
 
-
+        // constant calling to clearAllCache() function
         const cleared = clearAllCache();
+        // Log for debugging 
         console.log(`[Cache Manage] Cleared`, cleared, 'Cache Entries');
 
-
+        //Load new cache data -which should be none
         loadCacheData();
+        // set the state to false
         setIsClearing(false);
        }
     };
-
+    // if stats dont exist, return null.
     if (!stats) return null;
 
 
@@ -153,5 +162,5 @@ function CacheManager() {
     );
 }
 
-
+// Export Cache Manager
 export default CacheManager;

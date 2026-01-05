@@ -8,54 +8,30 @@
 - Phase-5-weather-ui-logic' - Completed
 - 'Phase-6-visualisation - Completed
 
-
-
 ### Start new phase
 
 ```bash
 git checkout main
 git pull origin main
-
-
-
 git checkout -b Phase-x-description
-
-
-
 git status
-
-
-
 git add .
-
 git commit -m "descriptive message of changes"
-
-
 git push origin phase-x-description
 ```
 
 ### Complete Phase
 
 ```bash
-
-# Ensure all tests pass
+# Ensure all tests pass - if any
 npm test
-
 # Final Commit
 git add .
 git commit -m "Phase x complete"
-
-
--Features
-
-
--Tests
-
-
 ## Push to Github
 git push origin phase-x-description
 
-#Merge to main (via PR or directly)
+# Merge to main (via PR or directly)
 git chechout main
 
 git merge phase-x-description Or Merge through GitHub (My Preference)
@@ -67,14 +43,16 @@ git push origin main
 
 = 'Feat:' - New Feature
 = 'Fix:' - Bug Fix
+
 - 'Docs:' - Documentation Only
 - 'Refactor:' - Code restructuring
 - 'Test' - adding tests
 - 'Chore:' - Maintainance Tasks
 
-## Environment files
+### Environment files
 
 **NEVER commit '.env' files!**
+**NEVER commit build tools or dependencies** - These are machine specific and can be configured locally
 
 ### Checkout Sensitive Data
 
@@ -87,11 +65,11 @@ git diff --cached
 
 ```
 
-### if accidently commited
+### if sensitive data is commited take these steps.
 
 ```bash
 
-# Remove froms taging
+# Remove froms tagging
 git reset HEAD .env
 
 # Remote from last commit (if not pushed)
@@ -148,7 +126,7 @@ when creating PR on github:
 3. **lables** add appropriate labels (enhancement, documentation, etc.)
 4. **reviewers** Can be assigned if working in a team
 
-## useful Git command
+## Useful Git command
 
 ### Check Status
 
@@ -181,8 +159,8 @@ git merge origin branch-name # Merge branch into current
 
 ```bash
 git fetch origin # Download remote changes
-git pull origin main # fethc + merg.....................................................e
-git push origin main #Uplad changes
+git pull origin main # fetch + merge
+git push origin main # Uplad changes
 ```
 
 ## TroubleShooting
@@ -194,7 +172,7 @@ git push origin main #Uplad changes
 git status
 # Edit Files to resolve Conflicts
 git add .
-git commit -m "resolve merge conflict
+git commit -m "resolve merge conflict"
 ```
 
 ### Reset To Remote
@@ -207,5 +185,5 @@ git reset --hard origin/main
 ### View Remote URL
 
 ```bash
-git remove -v
+git remote -v
 ```

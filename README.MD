@@ -2,32 +2,6 @@
 
 This is a full-stack weather application displayting weather and 5 day forecast using the OpenWeather API.
 
-## Architecture
-
-weather-dashboard/
-├── .gitignore
-├── README.md
-├── CONTRIBUTING.md
-└── backend/
-├── .env.example (template)
-├── .gitignore
-├── package.json
-├── README.md
-├── server.js
-├── data/
-│ ├── README.md
-│ ├── demo-current-london.json
-│ ├── demo-current-tokyo.json
-│ ├── demo-forecast-london.json
-│ └── demo-forecast-tokyo.json
-├── docs/
-│ └── API_CONTRACT.md
-├── routes/
-│ └── weather.js
-├── services/
-│ └── weatherService.js
-├── test-parity.js
-
 ## Tech Stack
 
 **backend**
@@ -259,34 +233,82 @@ GET /api/weather?city={cityName}
 # Project Structure (Detailed)
 
 ```
-WEATHER-APP/
-    ===backend/
-    ----------- routes/
-            -weather.js    # Weather endpoint handler
-    ----------- services/
-            -weatherService.js  # Open API Intergration
-    ----------- data/           # Demo Mode JSON files
-            -demo-current-london.json
-            -demo-forecast-london.json
-    ----------- docs/
-            -API_CONTRACT.md    # API documentation
-    =.env               # Environment variables
-    =.env.example       # Environment example
-    =package.json
-    =README.md       # Backned Specifications doc
-    =server.js       # Entry Point
-    ===frontend/
-    ------------ src/
-        --------components/     #React Componenets
-        --------services        # API client Layer
-        -App.jsx
-        -Main.js
-    =.env           # Frontend environment variable
-    =package.json
-    =README.md      # Frontend Specifications
+weather-app
+├──backend
+│   ├──data
+│   │   ├──demo-current-london.json
+│   │   ├──demo-current-tokyo.json
+│   │   ├──demo-forecast-london.json
+│   │   ├──demo-forecast-tokyo.json
+│   │   └──README.md
+│   ├──docs
+│   │   └──API_CONTRACT.md
+│   ├──routes
+│   │   └──weather.js
+│   ├──services
+│   │   └──weatherService.js
+│   ├──package.json
+│   ├──README.md
+│   ├──server.js
+│   ├──.env.example
+│   └──.gitignore
+├──frontend
+│   ├──public
+│   │   └──vite.svg
+│   ├──services
+│   │   └──api.js
+│   ├──src
+│   │   ├──assets
+│   │   │   └──react.svg
+│   │   ├──components
+│   │   │   ├──CacheIndicator.jsx
+│   │   │   ├──CacheManager.jsx
+│   │   │   ├──LoadingSpinner.jsx
+│   │   │   ├──README.md
+│   │   │   ├──SearchHistory.jsx
+│   │   │   ├──WeatherDisplay.jsx
+│   │   │   └──WeatherMapData.jsx
+│   │   ├──style
+│   │   │   ├──CacheIndicator.css
+│   │   │   ├──CacheManager.css
+│   │   │   ├──LoadingSpinner.css
+│   │   │   ├──SearchHistory.css
+│   │   │   └──WeatherDisplay.css
+│   │   ├──utils
+│   │   │   ├──cache.js
+│   │   │   ├──defensive.js
+│   │   │   ├──README.md
+│   │   │   ├──searchHistory.js
+│   │   │   └──validation.js
+│   │   ├──App.css
+│   │   ├──App.jsx
+│   │   ├──index.css
+│   │   └──main.jsx
+│   ├──.vite
+│   │   └──deps
+│   │   │   ├──_metadata.json
+│   │   │   ├──axios.js
+│   │   │   ├──axios.js.map
+│   │   │   ├──chunk-HKJ2B2AA.js
+│   │   │   ├──chunk-HKJ2B2AA.js.map
+│   │   │   ├──chunk-YVZCJCRU.js
+│   │   │   ├──chunk-YVZCJCRU.js.map
+│   │   │   ├──package.json
+│   │   │   ├──react-dom_client.js
+│   │   │   ├──react-dom_client.js.map
+│   │   │   ├──react.js
+│   │   │   └──react.js.map
+│   ├──eslint.config.js
+│   ├──index.html
+│   ├──package.json
+│   ├──README.md
+│   ├──vite.config.js
+│   ├──.env.example
+│   └──.gitignore
+├──CONTRIBUTING.md
+├──README.MD
+└──.gitignore
 ```
-
-
 
 ## Backend Tests
 

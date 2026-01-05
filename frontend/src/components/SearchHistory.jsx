@@ -6,6 +6,7 @@ import '../style/SearchHistory.css'
 
 
 function SearchHistory({history, onSelectCity, onRemoveCity, onClearHistory}) {
+    // if request is not history or history.length is === 0 reutrn No Searches
     if (!history || history.length === 0) {
         return (
             <div className="search-history">
@@ -16,7 +17,7 @@ function SearchHistory({history, onSelectCity, onRemoveCity, onClearHistory}) {
             </div>
         );
     }
-
+    // else returns active searches - with clearing, selecting, and removing entires
     return (
         <div className="search-history">
             <div className="history-header">
@@ -33,6 +34,7 @@ function SearchHistory({history, onSelectCity, onRemoveCity, onClearHistory}) {
 
 
             <div className="history-list">
+                {/* Map Over History Array */}
                 {history.map((item,index) => (
                     <div key={index} className="history-item">
                         <button
@@ -56,6 +58,7 @@ function SearchHistory({history, onSelectCity, onRemoveCity, onClearHistory}) {
                         <button
                             className="history-remove-btn"
                             onClick={(e) => {
+                                // Stops the affection of other elements upon deletion of another
                                 e.stopPropagation();
                                 onRemoveCity(item.city);
                             }}
@@ -69,5 +72,5 @@ function SearchHistory({history, onSelectCity, onRemoveCity, onClearHistory}) {
         </div>
     );
 }
-
+// export SearchHistory
 export default SearchHistory;

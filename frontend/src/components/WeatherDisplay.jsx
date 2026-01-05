@@ -4,6 +4,7 @@ import '../style/WeatherDisplay.css';
 
 
 function  WeatherDisplay({ weatherData }) {
+    // If WeatherData is not present- return no Weather Available
     if (!weatherData) {
         return (
             <div className="weather-display-error">
@@ -12,11 +13,11 @@ function  WeatherDisplay({ weatherData }) {
         )
     }
 
-
+   // Esablish current and forecast falling back on empty objects
     const current = weatherData.current || {};
     const forecast = weatherData.forecast || {};
 
-
+    // Use safGet() defensive rendering utility for fallback values
     const cityName = safeGet(current, 'name', 'Unkown City');
     const country = safeGet(current, 'sys.country', '??');
     const temp = safeGet(current, 'main.temp');
@@ -28,7 +29,7 @@ function  WeatherDisplay({ weatherData }) {
     const weatherIcon = safeGet(current, 'weather.0.icon');
 
 
-
+    // Ensire forecastList in an array if not return empty array
     const forecastList = Array.isArray(forecast.list) ? forecast.list : [];
 
 
@@ -42,6 +43,7 @@ function  WeatherDisplay({ weatherData }) {
             <div className="current-weather">
                 <div className="weather-header">
                     <h4>Current Weather</h4>
+                    {/* No Weather Icon available, fallback value returns */}
                     {weatherIcon && weatherIcon !== 'N/A' && (
                         <img
                             src={getWeatherIcon(weatherIcon)}
@@ -103,6 +105,7 @@ function  WeatherDisplay({ weatherData }) {
                         <div className="forecast-sample">
                             <h5>Next 3 Entries:</h5>
                             <div className="forecast-grid">
+                                {/* Map over the forecast array using defensive rendering utilities */}
                                 {forecastList.slice(0,6).map((entry, index) => {
                                 const entryTemp = safeGet(entry, 'main.temp');
                                 const entryWeather = safeGet(entry, 'weather.0.description', ' Unknown');
@@ -146,5 +149,5 @@ function  WeatherDisplay({ weatherData }) {
     );
 }
 
-
+// export WeatherDisplay
 export default WeatherDisplay;

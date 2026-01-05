@@ -2,9 +2,7 @@ import express from 'express';
 const router = express.Router();
 import getWeatherData from '../services/weatherService.js';
 
-// *** GET /api/weather?city=London
-
-//
+// *** GET /api/weather?city=London - Single Endpoint
 
 router.get('/', async (req, res) => {
     const { city } = req.query;
@@ -23,19 +21,20 @@ router.get('/', async (req, res) => {
     // Check API Key exists
     const apikey = process.env.API_KEY;
     if (!apikey) {
-        return res.status(500).json({
+        return res.status(401).json({
             error: "Server Configuration error",
             message: "OpenWeather_API_Key not configured"
         });
     }
 
     try {
+        // Log Request for debugging
         console.log(`[WEATHER REQUEST]`, { city: city.trim() });
 
-
+        // Get Weather Data.
         const weatherData = await getWeatherData(city.trim(), apikey);
 
-        // Log Response Structure
+        // Log Response Structure for debugging
         console.log(`[WEATHER RESPONSE STRUCUTRE]`, {
             hasCurrent: !!weatherData.current,
             hasForecast: !!weatherData.forecast,
@@ -43,7 +42,7 @@ router.get('/', async (req, res) => {
             forecastCount: weatherData.forecast?.list?.length
         });
 
-        res.json(weatherData);
+        res.status(201).json(weatherData);
     } catch (error) {
         // handle openAPI errors
         if (error.response) {
@@ -52,7 +51,7 @@ router.get('/', async (req, res) => {
             const message = error.response.data.message || 'unknown error';
 
 
-
+            // Status 404 - No City
             if (status === 404) {
                 return res.status(404).json({
                     error: "City Not Found",
@@ -62,7 +61,7 @@ router.get('/', async (req, res) => {
 
             }
 
-
+            // Status 401 - API Configuration failure
             if (status === 401) {
                 return res.status(500).json({
                     error: "API Authentication failed",
