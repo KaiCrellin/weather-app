@@ -7,13 +7,12 @@ import '../style/CacheIndicator.css'
 
 
 function CacheIndicator({ fromCache, age, onRefresh}) {
+    // Refreshing State
     const [isRefreshing , setIsRefreshing] = useState(false);
+    // Check if data is from local Cache
     if (!fromCache) return null;
 
-    if (!fromCache) {
-        return null;
-    }
-
+    // Handle Refresh, 5
     const handleRefresh = async () => {
         setIsRefreshing(true);
         await onRefresh();
@@ -51,5 +50,5 @@ function CacheIndicator({ fromCache, age, onRefresh}) {
         </div>
     );
 }
-
+// export CacheIndicator
 export default CacheIndicator;

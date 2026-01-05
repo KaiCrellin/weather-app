@@ -1,33 +1,47 @@
 
 
-
+//**
+//  */ Safe Get utility
 export function safeGet(obj, path, fallback = 'N/A') {
     try {
+        // split target current.main.temp [curret, main, temp]
         const keys = path.split('.');
         let result = obj;
 
 
-
+        // Interate through eack key
         for (const key of keys) {
-            if (result === null || result == undefined) {
+            // check if each entry is null or undefined
+            if (result === null || result === undefined) {
+                // return fallback value
                 return fallback;
             }
+            // Tunnel Through the JSON object
+            // e.g 1st loop, result = {current: {mainL {temp:20}}}
+            // e,g 2nd loop, result = {main: {temp: 20}}
             result = result[key];
 
         }
+        // return result if not null or undefined. if so fallback
         return result !== null && result !== undefined ? result : fallback;
     } catch (error) {
+        // Catch erros and warn console.
         console.warn(`[DEFENSIVE] Error accessing path`, path, error);
         return fallback;
     }
 }
 
 
-
+//**
+//  */ ValidateWeatherData Function
 export function validateWeatherData(data) {
+    // Object literals, errors, and warnings
     const errors = [];
     const warnings = [];
 
+    // Check all data is present, 
+    // not null or undefined. 
+    // If so push warnnings and errors respectively
 
     if (!data) {
         errors.push(`Weather data is null or undefined`);
@@ -64,19 +78,25 @@ export function validateWeatherData(data) {
             warnings.push(`Forecast List is empty`);
         }
     }
+    // if errors are 0 isValid = true
     const isValid = errors.length === 0;
-
+    // if isValid is false errors.length > 0
     if (!isValid) {
+        // if !isValid push console erros
         console.error(`[DEFENSIVE] Weather data validation Failed`, errors);
     }
+    // if warnings.length is more than 0, push console warnings
     if (warnings.length > 0) {
         console.warn(`[DEFENSIVE] Weather data warnings:`, warnings);
     }
+    // return object literal with warnings, erros and data,. 
     return { isValid, errors, warnings, data };
 }
 
-
+// Format Temperature
 export function formatTemperature(temp) {
+    // Check if temp is null, undefined or Not a Number -this is done the same for the
+    // next 2 functions
     if (temp === null || temp === undefined || isNaN(temp)) {
         return 'N/A';
     }
@@ -98,8 +118,9 @@ export function formatHumidity(humidity) {
     return `${humidity}%`;
 }
 
-
+// getWeatherIcon
 export function getWeatherIcon(iconCode) {
+    // if not iconcode return a temp emoji
     if (!iconCode) {
         return '🌡️';
     }
@@ -107,17 +128,21 @@ export function getWeatherIcon(iconCode) {
 
 }
 
-
+// safeArray function 
 export function safeArray(arr, maxLength = 100) {
+    // Check if array is an array
     if (!Array.isArray(arr)) {
+        // warn 
         console.warn(`[DEFENSIVE] Expected Array, Got:`, typeof arr);
         return [];
     }
-
+    // check if arr is longer than max-length
     if (arr.length > maxLength) {
+        // warn
         console.warn(`[DEFENSIVE] Array exceeds max length, truncating`, arr.length, '->', maxLength);
         return arr.slice(0, maxLength)
     }
+    // return array 
     return arr;
 }
 

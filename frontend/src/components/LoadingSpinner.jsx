@@ -4,6 +4,8 @@ import '../style/LoadingSpinner.css';
 
 
 function LoadingSpinner({show, message = 'Loading...', overlay = false}) {
+    // if a property using LoadingSpinner does not have show={true}
+    //it will not work
     if (!show) return null;
 
 
@@ -18,5 +20,5 @@ function LoadingSpinner({show, message = 'Loading...', overlay = false}) {
         </>
     );
 }
-
+// Export LoadingSpinner
 export default LoadingSpinner;

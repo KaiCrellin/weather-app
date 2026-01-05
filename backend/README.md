@@ -71,25 +71,26 @@ npm run dev ### DEVELOPMENT - AUTO RESTART NODEMON
 - '500' - Server or API Errror
 
 ## Project Structure
-
 ```
-WEATHER-APP/
-    ===backend/
-    ----------- routes/
-            -weather.js    # Weather endpoint handler
-    ----------- services/
-            -weatherService.js  # Open API Intergration
-    ----------- data/           # Demo Mode JSON files
-            -demo-current-london.json
-            -demo-forecast-london.json
-    ----------- docs/
-            -API_CONTRACT.md    # API documentation
-    =.env               # Environment variables
-    =.env.example       # Environment example
-    =package.json
-    =Package-lock.json
-    =README.md       # Backned Specifications doc
-    =server.js       # Entry Point
+weather-app
+├──backend
+│   ├──data
+│   │   ├──demo-current-london.json
+│   │   ├──demo-current-tokyo.json
+│   │   ├──demo-forecast-london.json
+│   │   ├──demo-forecast-tokyo.json
+│   │   └──README.md
+│   ├──docs
+│   │   └──API_CONTRACT.md
+│   ├──routes
+│   │   └──weather.js
+│   ├──services
+│   │   └──weatherService.js
+│   ├──package.json
+│   ├──README.md
+│   ├──server.js
+│   ├──.env.example
+│   └──.gitignore
 ```
 
 ## Development Workflow
@@ -287,7 +288,7 @@ curl  "http://localhost:5000/api/weather"
 - [x] Health Check endpoint returns correct strucutre
 - [x] Weather endpoint validates city parametr
 - [x] Error handling for all failure modes
-- [] Demo Mode returns correct data
+- [X] Demo Mode returns correct data
 - [x] Live Mode calls OpenWeather Correctly
 
 ## Server won't start
@@ -337,7 +338,7 @@ All Loging is prefixed for easy filtering:
     },
 ```
 
-**\*dev dependencies**
+**dev dependencies**
 
 ```json
 "devDependencies": {

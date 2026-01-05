@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-
+// Import Frontend Env variables
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 
-
+// Create an "Axios Instance"
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
@@ -14,7 +14,7 @@ const apiClient = axios.create({
 });
 
 
-
+// Console Interceptors to Log all API Requests.
 apiClient.interceptors.request.use(
     (config) => {
         console.log(`[API REQUEST]`, {
@@ -53,9 +53,10 @@ apiClient.interceptors.response.use(
     }
 );
 
-
+// Function to check server health
 export const checkHealth = async () => {
     try {
+        // Await Axios get response to API endpoint /api/health
         const response = await apiClient.get(`/api/health`);
         return {
             success: true,
@@ -67,11 +68,13 @@ export const checkHealth = async () => {
             error: error.response?.data || { message: error.message }
         };
     }
+    // Return data if successfull, return error if unsuccessful
 };
 
-
+// Function to getWeatherData
 export const getWeather = async (city) => {
     try {
+        // Await Axios get response to API Endpoint /api/weather
         const response = await apiClient.get('/api/weather', {
             params: { city }
         });
@@ -85,38 +88,9 @@ export const getWeather = async (city) => {
             error: error.response?.data || { message: error.message }
         };
     }
+    // Returns data if successful, returns error if unsuccessful.
 };
 
 
-
-export const validateConnection = async () => {
-    const results = {
-        health: null,
-        weather: null,
-        overall: false
-
-    };
-
-
-
-    const healthCheck = checkHealth();
-    results.health = healthCheck;
-
-
-
-    const weatherCheck = await getWeather('London');
-    results.weather = weatherCheck;
-
-
-
-    results.overall = healthCheck.success && weatherCheck.success;
-
-
-    console.log(`[API VALIDATION]`, results);
-
-
-    return results;
-};
-
-
+// export apiClient
 export default apiClient;
