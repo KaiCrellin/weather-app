@@ -1,6 +1,6 @@
 // Set Cache prefix for targeting and a 20 Min TTL
 const CACHE_PREFIX = 'weather_cache_';
-const CACHE_DURATION = 10 * 60 * 1000; // 1,200,000 MS
+const CACHE_DURATION = 10 * 120 * 1000; // 1,200,000 MS
 
 
 
