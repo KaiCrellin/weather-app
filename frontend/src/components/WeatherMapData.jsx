@@ -43,7 +43,7 @@ export default function WeatherMap({ weatherData }) {
                         <p><b>Weather Description:</b>{weatherDescription}</p>
                         <p><b>Country Code:</b>{country}:</p>
                         <p><b>Temperature:</b> {formatTemperature(temp)}:</p>
-                        <p><b>Feels Like:</b> {feelsLike}</p>
+                        <p><b>Feels Like:</b> {feelsLike}C</p>
                         <p><b>Humidity:</b>{formatHumidity(humidity)}:</p>
                         <p><b>Wind Speed</b>{formatWindSpeed(windSpeed)}:</p>
 

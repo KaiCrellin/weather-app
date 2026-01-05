@@ -17,7 +17,7 @@ export function safeGet(obj, path, fallback = 'N/A') {
                 return fallback;
             }
             // Tunnel Through the JSON object
-            // e.g 1st loop, result = {current: {mainL {temp:20}}}
+            // e.g 1st loop, result = {current: {main: {temp:20}}}
             // e,g 2nd loop, result = {main: {temp: 20}}
             result = result[key];
 

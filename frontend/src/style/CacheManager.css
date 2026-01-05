@@ -123,6 +123,7 @@
   padding: 10px 12px;
   border-radius: 4px;
   border-left: 3px solid #3498db;
+  gap: 14px;
 }
 
 .cache-item-removing {
