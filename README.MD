@@ -104,7 +104,7 @@ Frontend runs on: "http://localhost:5173"
 ### Demo Mode development
 
 ```bash in .env
-USE_DEM_DATA=true
+USE_DEMO_DATA=true
 ```
 
 - Uses local JSON files
