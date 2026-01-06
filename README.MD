@@ -16,7 +16,6 @@ This is a full-stack weather application displayting weather and 5 day forecast 
 - React - UI framework
 - VITE - build tool
 - AXIOS - HTTP client for backend communication
-- Chart.js - Forecast visualization
 - Leaflet - Interactive Maps.
 
 ## Features
