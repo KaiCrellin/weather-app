@@ -20,7 +20,8 @@ Tech Stack
 - AXIOS - HTTP client for backend communication
 - Leaflet - Interactive Maps.
 
-## Features
+Features
+---------
 
 - Current Weather Conditions (temperature, humidity, wind)
 - 5-day forecast with 3 hour intervals
@@ -29,14 +30,17 @@ Tech Stack
 - Demo mode for development without API CALLS
 - API key protection (backend-only)
 
-## prerequisites
+prerequisites
+--------------
 
 - Node.js 18+ and npm
 - OpenWeatherAPI key
 
-## Quick start
+Quick start
+-------------
 
-### 1. Clone and instll
+1. Clone and instll
+-------------------
 
 ```bash
 git clone
@@ -53,7 +57,8 @@ cd ../frontend --- directs to frontend sub-folder
 npm install
 ```
 
-### 2. Configure Backend
+2. Configure Backend
+---------------------
 
 Create 'backend/.env:
 
@@ -71,7 +76,8 @@ API_KEY= your_api_key_here
 3. Wait 10 minutes for activation
 4. add to '.env'
 
-### .3 Start backend
+.3 Start backend
+---------------
 
 ```bash
 cd backend
@@ -92,7 +98,8 @@ curl http://localhost:5000/api/health
 curl "http://localhost:5000/api/weather?city=London"
 ```
 
-### 4. Start Frontend
+4. Start Frontend
+------------------
 
 ```bash
 cd frontend
@@ -101,9 +108,11 @@ npm run dev
 
 Frontend runs on: "http://localhost:5173"
 
-## Environment Modes
+Environment Modes
+--------------------
 
-### Demo Mode development
+Demo Mode development
+--------------------
 
 ```bash in .env
 USE_DEMO_DATA=true
@@ -115,7 +124,8 @@ USE_DEMO_DATA=true
 - instant responses
 - consistent data for testing
 
-### live Mode (production)
+live Mode (production)
+---------------------
 
 ```bash in /env
 USE_DEMO_DATA=false
@@ -129,9 +139,12 @@ USE_DEMO_DATA=false
 
 **switch modes** Change '.env' and restart backend. Frontend requires no change.
 
-##API Endpoints
+API Endpoints
+-------------
 
-## Health Check
+
+Health Check
+-------------
 
 ```bash
 
@@ -149,7 +162,8 @@ GET /api/health
 }
 ```
 
-### Get Weather Data
+Get Weather Data
+------------------
 
 ```bash
 
@@ -196,42 +210,45 @@ GET /api/weather?city={cityName}
 }
 ```
 
-## Development Cycle
+ 
+Development Cycle
+--------------
 
-### Phase 1: Backend Foundation (Completed) [x]
+# Phase 1: Backend Foundation (Completed) [x]
 
 - Express server setup
 - Health check endpoint
 - Environment Configuration
 
-### Phase 2: Weather API Gateway (Completed) [x]
+#Phase 2: Weather API Gateway (Completed) [x]
 
 - OpenWeather API Intergration
 - Combined Current + forecast endpoint
 - Error handling
 
-### Phase 3: Demo Data Mode (Completed) [x]
+# Phase 3: Demo Data Mode (Completed) [x]
 
 - Local JSON files for development
 - Mode Switching without code changes
 
-### Phase 4: Frontend Foundation (Completed) [X]
+# Phase 4: Frontend Foundation (Completed) [X]
 
 - React + Vite setup
 - API service layer
 - backend connection
 
-### Phase 5: Weather UI Logic (Completed) [X]
+# Phase 5: Weather UI Logic (Completed) [X]
 
 - Search functionality
 - Data validation
 - Display Weather Information
 
-### Phase 6: Visualisation (Completed) [X]
+# Phase 6: Visualisation (Completed) [X]
 
 - Leaflet Map intergration
 
-# Project Structure (Detailed)
+ Project Structure (Detailed)
+--------------------------
 
 ```
 weather-app
@@ -311,7 +328,8 @@ weather-app
 └──.gitignore
 ```
 
-## Backend Tests
+ Backend Tests
+-----------------
 
 ```bash
  # Health Check
@@ -319,7 +337,7 @@ weather-app
 
 
 
- # Weather endpoint (livemode)
+# Weather endpoint (livemode)
  curl "http://localhost:5000/api/weather?city=London"
 
  # Error Handling
