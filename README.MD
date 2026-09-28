@@ -1,8 +1,10 @@
-# Weather dashboard
+Weather dashboard
+------------------
 
 This is a full-stack weather application displayting weather and 5 day forecast using the OpenWeather API.
 
-## Tech Stack
+Tech Stack
+-----------------
 
 **backend**
 
@@ -198,8 +200,8 @@ GET /api/weather?city={cityName}
 
 ### Phase 1: Backend Foundation (Completed) [x]
 
-- Express server setuo
-- Health check enpoint
+- Express server setup
+- Health check endpoint
 - Environment Configuration
 
 ### Phase 2: Weather API Gateway (Completed) [x]
