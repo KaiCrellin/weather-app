@@ -39,7 +39,7 @@ This is a full-stack weather application displayting weather and 5 day forecast 
 # Quick start
 -------------
 
-1. Clone and instll
+## 1. Clone and instll
 -------------------
 
 ```bash
@@ -57,7 +57,7 @@ cd ../frontend --- directs to frontend sub-folder
 npm install
 ```
 
-2. Configure Backend
+## 2. Configure Backend
 ---------------------
 
 Create 'backend/.env:
@@ -76,7 +76,7 @@ API_KEY= your_api_key_here
 3. Wait 10 minutes for activation
 4. add to '.env'
 
-.3 Start backend
+## .3 Start backend
 ---------------
 
 ```bash
@@ -98,7 +98,7 @@ curl http://localhost:5000/api/health
 curl "http://localhost:5000/api/weather?city=London"
 ```
 
-4. Start Frontend
+## 4. Start Frontend
 ------------------
 
 ```bash
