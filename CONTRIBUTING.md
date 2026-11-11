@@ -57,7 +57,7 @@ git push origin main
 ### Checkout Sensitive Data
 
 ```bash
-#Search for API keys in commit (should fine none)
+#Search for API keys in commit (should find none)
 git log -S "API_KEY" - all
 
 # Check whats about to be commited
